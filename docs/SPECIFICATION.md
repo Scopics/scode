@@ -2,14 +2,23 @@
 
 Проект реалізовується командою Scopics. Метою проекту є створення власного QR-like коду для youtube, його шифрування та дешифрування, а також його зчитування за допомогою камери.
 
-Для реалізації проекту плануємо використовувати nodeJS та Electron.
+Технологiчний стек проекту:
+
+- Back-end: NodeJS, TypeScript (NestJS Framework)
+- Front-end: JavaScript (React)
+
+Середовища для розгортання:
+
+- Front-end: Heroku
+- Back-end: Docker
+- Desktop: NodeJS (Electron)
 
 Команда:
 
-- [Урин Дмитро](http://example.com/)
-- [Говоруха Максим](http://example.com/)
-- [Трембач Анастасія](http://example.com/)
-- [Грибенко Єгор](http://example.com/)
+- [Урин Дмитро](https://github.com/tedi4t)
+- [Говоруха Максим](https://github.com/MaksGovor)
+- [Трембач Анастасія](https://github.com/Anastasia-Tre)
+- [Грибенко Єгор](https://github.com/YAGoOaR)
 
 # Задачі
 
