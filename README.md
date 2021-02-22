@@ -6,4 +6,4 @@
 
 ## Useful links
 
-- [Specification](https://github.com/Scopics/scode/blob/main/SPECIFICATION.md)
+- [Specification](https://github.com/Scopics/scode/blob/main/docs/SPECIFICATION.md)
