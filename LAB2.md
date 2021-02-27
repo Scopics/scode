@@ -15,5 +15,3 @@
 # Merge commit 1: YAGoOaR
 
 # Merge commit 1: Anastasia-Tre
-
-# This text will be reverted: YAGoOaR
