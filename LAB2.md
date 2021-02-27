@@ -7,3 +7,5 @@
 # Fast forfard commit 1: Anastasia-Tre
 
 # Merge commits:
+
+# Merge commit 1: maksgovor
