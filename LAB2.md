@@ -15,5 +15,3 @@
 # Merge commit 1: YAGoOaR
 
 # Merge commit 1: Anastasia-Tre
-
-# Revert merge commit 1: maksgovor
