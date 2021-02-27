@@ -5,3 +5,5 @@
 # Fast forfard commit 1: YAGoOaR
 
 # Fast forfard commit 1: Anastasia-Tre
+
+# Merge commits:
