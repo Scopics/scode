@@ -9,3 +9,5 @@
 # Merge commits:
 
 # Merge commit 1: maksgovor
+
+# Merge commit 1: Uryn Dmytro
