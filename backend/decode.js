@@ -79,3 +79,20 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   
   return resQueryParam;
 };
+
+const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
+  const END_CODE = 'fa';
+  const len = lengthOfLines.length;
+  let scodeHex = '';
+  for (const len of lengthOfLines) {
+    scodeHex += len.toString(16);
+  }
+
+  if (scodeHex.slice(len - 2) !== END_CODE) {
+    throw new Error('The code reading was not correct');
+  };
+
+  scodeHex = scodeHex.slice(0, len - 2);
+  const res = decodeHexInQueryParam(scodeHex, urlCodeLen);
+  return res;
+};
