@@ -64,17 +64,15 @@ const getChunksOfString = (str, size) => {
 const decodeHexInQueryParam = (scode, urlCodeLen) => {
   const scodeLen = scode.length;
 
-  if (scodeLen < urlCodeLen) {
-    throw new Error('The code is wrong');
+  if (scodeLen < urlCodeLen || !scodeLen) {
+    throw new Error('The code is wrong or empty');
   }
 
   const codeOfLink = scode.slice(0, urlCodeLen);
   const readoutСrc = scode.slice(urlCodeLen);
 
   const readoutСrcWidth = 4 * readoutСrc.length;
-  
   if (readoutСrcWidth % 8 !== 0 ||
-      readoutСrcWidth < 8 ||
       readoutСrcWidth > 32) {
     throw new Error('Length of the crc sum is invalid')
   }
@@ -97,6 +95,10 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
 const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
   const END_CODE = 'fa';
   const len = lengthOfLines.length;
+  if (!len || !Array.isArray(lengthOfLines)) {
+    throw new Error('Array of lengths is empty or it is not an array');
+  }
+
   let scodeHex = '';
   for (const len of lengthOfLines) {
     scodeHex += len.toString(16);

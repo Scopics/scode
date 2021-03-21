@@ -5,7 +5,12 @@ function codeItemASCII(item = '') {
 }
 
 function codeASCII(text) {
-  return text.split('').map(item => codeItemASCII(item));
+  let dataToDecoding = text;
+  if (Array.isArray(text)) dataToDecoding = text.join('');
+  return dataToDecoding
+    .toString()
+    .split('')
+    .map(item => codeItemASCII(item));
 }
 
 module.exports = { codeItemASCII, codeASCII };
