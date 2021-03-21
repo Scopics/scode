@@ -35,3 +35,13 @@ function stabilize(rays) {
   const stabilized = rays.slice(iterator).concat(rays.slice(0, iterator));
   return stabilized;
 }
+
+function removeGuides(rays) {
+  const raysCopy = [...rays];
+  const sides = 4;
+  const step = rays.length / sides;
+  const guidesIndexes = Array.from({ length: sides }, (item, index) => step * index);
+
+  guidesIndexes.reverse().forEach(index => raysCopy.splice(index, 1));
+  return raysCopy;
+}
