@@ -30,6 +30,9 @@ function stabilize(rays) {
     }
   }
 
+  if (!startFound)
+    throw new Error('Something is wrong...');
+
   const stabilized = rays.slice(iterator).concat(rays.slice(0, iterator));
   return stabilized;
 }
