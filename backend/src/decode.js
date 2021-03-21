@@ -50,6 +50,8 @@ function removeGuides(rays) {
 }
 
 const getChunksOfString = (str, size) => {
+  if (size <= 0)
+    throw new Error('Invalid size value');
   const numChunks = Math.ceil(str.length / size);
   const chunks = new Array(numChunks);
 
