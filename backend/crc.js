@@ -57,5 +57,6 @@ const getCrc = (width) => {
     return (crc ^ finalXorVal);
   }
 }
+const getCrc = partial(getCrcByConfig, crcParamsByWidth);
 
 module.exports = getCrc;
