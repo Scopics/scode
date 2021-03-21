@@ -104,7 +104,9 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
   return res;
 };
 
-function getLink(rays, scodeLen) {
+function getLink(rays, linkLen) {
+  const asciiItemLen = 2; 
+  const scodeLen = linkLen * asciiItemLen;
   const stabilized = stabilize(rays);
 
   const raysCoded = removeGuides(stabilized);
