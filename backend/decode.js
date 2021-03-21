@@ -96,3 +96,11 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
   const res = decodeHexInQueryParam(scodeHex, urlCodeLen);
   return res;
 };
+
+function getLink(rays, scodeLen) {
+  const stabilized = stabilize(rays);
+
+  const raysCoded = removeGuides(stabilized);
+  const result = decodeDataFromImage(raysCoded, scodeLen * 2);
+  return result;
+}
