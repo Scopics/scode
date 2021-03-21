@@ -14,14 +14,15 @@ function stabilize(rays) {
   const neededLen = [15, 15, 0, 15];
 
   while (!startFound && iterator < len) {
-    const correct = true;
+    let correct = true;
 
-    for(let i = 0; i < sides; i++){
-      const ind = (iterator + (step * i)) % len;
-      if(neededLen[i] !== rays[ind]){
-        correct = false
+    neededLen.forEach((item, i) => {
+      const ind = iterator + ( step * i );
+      if(item !== rays[ind]){
+        correct = false;
       }
-    }
+    })
+
     if(correct){
       startFound = true;
     }
