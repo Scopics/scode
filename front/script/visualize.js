@@ -6,6 +6,7 @@ const MAX_RADIUS = 150;
 const LINE_SCALE = MAX_RADIUS / COUNTING_SYSTEM;
 const SERVICE_RAYS = 4;
 const QUARTERS = 4;
+const MAX_ANGLE = Math.PI * 2;
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -38,7 +39,8 @@ function drawScode(code) {
       lineLength = MIN_RADIUS + parseInt(code.shift() || 'f', COUNTING_SYSTEM) * LINE_SCALE;
     }
 
-    const angle = - Math.PI * 2 * (i / quantity);
+    const step = 1 / quantity;
+    const angle = - MAX_ANGLE * i * step;
     const vector = createHeadingVector(angle)
     const start = multVector(vector, INNER_RADIUS);
     const end = multVector(vector, INNER_RADIUS + MIN_RADIUS + lineLength);
