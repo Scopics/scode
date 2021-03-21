@@ -1,0 +1,25 @@
+{
+  "name": "scode",
+  "version": "1.0.0",
+  "description": "![Logo](https://raw.githubusercontent.com/MaksGovor/Images/master/Voting-system/logoScode.png)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scopics/scode.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Scopics/scode/issues"
+  },
+  "homepage": "https://github.com/Scopics/scode#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
