@@ -66,7 +66,14 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   const codeOfLink = scode.slice(0, urlCodeLen);
   const readoutСrc = scode.slice(urlCodeLen);
 
-  const readoutСrcWidth = 2 ** readoutСrc.length;
+  const readoutСrcWidth = 4 * readoutСrc.length;
+  
+  if (readoutСrcWidth % 8 !== 0 ||
+      readoutСrcWidth < 8 ||
+      readoutСrcWidth > 32) {
+    throw new Error('Length of the cfs sum is invalid')
+  }
+
   const asciiItemLen = 2;
   const asciChars = getChunksOfString(codeOfLink, asciiItemLen);
   const crc = new Crc(readoutСrcWidth);
@@ -108,6 +115,8 @@ function getLink(rays, linkLen) {
   const result = decodeDataFromImage(raysCoded, scodeLen);
   return result;
 }
+
+console.log(decodeHexInQueryParam('782d526436665056364c38f868', 22))
 
 module.exports = {
   stabilize,
