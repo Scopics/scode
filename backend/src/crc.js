@@ -2,7 +2,7 @@
 
 
 class CRC {
-  constructor(width, polynom, initialVal, finalXorVal) {
+  constructor(width, ...params) {
 
     // width: [castMask, polynom, initialVal, finalXorVal]
     const crcParamsByWidth = {
@@ -72,4 +72,3 @@ class CRC {
 }
 
 module.exports = CRC;
-
