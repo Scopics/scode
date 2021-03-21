@@ -17,7 +17,7 @@ function stabilize(rays) {
     let correct = true;
 
     neededLen.forEach((item, i) => {
-      const ind = iterator + ( step * i );
+      const ind = (iterator + ( step * i )) % len;
       if(item !== rays[ind]){
         correct = false;
       }
