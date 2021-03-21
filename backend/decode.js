@@ -73,7 +73,8 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   const readoutСrc = scode.slice(urlCodeLen);
 
   const readoutСrcWidth = 2 ** readoutСrc.length;
-  const asciChars = getChunksOfString(codeOfLink, 2);
+  const asciiItemLen = 2; 
+  const asciChars = getChunksOfString(codeOfLink, asciiItemLen);
   const generatedCrc = getCrc(readoutСrcWidth)(asciChars);
 
   if (parseInt(readoutСrc, 16) !== generatedCrc) {
