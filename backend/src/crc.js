@@ -20,9 +20,9 @@ class CRC {
     }
 
     if (arguments.length === 4) {
-      this.polynom = arguments[1];
-      this.initialVal = arguments[2];
-      this.finalXorVal = arguments[3];
+      [this.polynom,
+        this.initialVal,
+        this.finalXorVal] = params;
     } else if (arguments.length !== 1) {
       throw 'Invalid arguments';
     }
