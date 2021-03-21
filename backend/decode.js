@@ -1,9 +1,13 @@
+'use strict';
+
+const getCrc = require('./crc');
+
 function stabilize(rays) {
   if (rays.length % 4 !== 0)
     throw new Error('Something is wrong...');
   const len = rays.length;
   const step = len / 4;
-  
+
   let startFound = false;
   let iterator = 0;
   const neededLen = {
@@ -11,8 +15,8 @@ function stabilize(rays) {
     right: 15,
     bottom: 0,
     left: 15
-  }
-  while(!startFound && iterator < len) {
+  };
+  while (!startFound && iterator < len) {
     const topInd = iterator % len;
     const top = rays[topInd];
     const rightInd = (iterator + step) % len;
@@ -21,9 +25,9 @@ function stabilize(rays) {
     const bottom = rays[bottomInd];
     const leftInd = (iterator + step * 3) % len;
     const left = rays[leftInd];
-    if (neededLen.top === top && 
-      neededLen.right === right && 
-      neededLen.bottom === bottom && 
+    if (neededLen.top === top &&
+      neededLen.right === right &&
+      neededLen.bottom === bottom &&
       neededLen.left === left
     ) {
       startFound = true;
@@ -40,9 +44,11 @@ function removeGuides(rays) {
   const raysCopy = [...rays];
   const sides = 4;
   const step = rays.length / sides;
-  const guidesIndexes = Array.from({ length: sides }, (item, index) => step * index);
+  const guidesIndexes = Array.from(
+    { length: sides }, (item, index) => step * index
+  );
 
-  guidesIndexes.reverse().forEach(index => raysCopy.splice(index, 1));
+  guidesIndexes.reverse().forEach((index) => raysCopy.splice(index, 1));
   return raysCopy;
 }
 
@@ -63,20 +69,20 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
     throw new Error('The code is wrong');
   }
 
-  const codeOfLink = scode.slice(0, urlCodeLen);  
+  const codeOfLink = scode.slice(0, urlCodeLen);
   const readoutСrc = scode.slice(urlCodeLen);
 
   const readoutСrcWidth = 2 ** readoutСrc.length;
   const asciChars = getChunksOfString(codeOfLink, 2);
   const generatedCrc = getCrc(readoutСrcWidth)(asciChars);
-  
+
   if (parseInt(readoutСrc, 16) !== generatedCrc) {
     throw new Error('Checksums CRC did not match');
   }
 
-  const charCodes = asciChars.map(code => parseInt(code, 16));
+  const charCodes = asciChars.map((code) => parseInt(code, 16));
   const resQueryParam = String.fromCharCode(...charCodes);
-  
+
   return resQueryParam;
 };
 
@@ -90,7 +96,7 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
 
   if (scodeHex.slice(len - 2) !== END_CODE) {
     throw new Error('The code reading was not correct');
-  };
+  }
 
   scodeHex = scodeHex.slice(0, len - 2);
   const res = decodeHexInQueryParam(scodeHex, urlCodeLen);
@@ -104,3 +110,5 @@ function getLink(rays, scodeLen) {
   const result = decodeDataFromImage(raysCoded, scodeLen * 2);
   return result;
 }
+
+module.exports = getLink;
