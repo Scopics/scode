@@ -56,3 +56,26 @@ const getChunksOfString = (str, size) => {
   return chunks;
 };
 
+const decodeHexInQueryParam = (scode, urlCodeLen) => {
+  const scodeLen = scode.length;
+
+  if (scodeLen < urlCodeLen) {
+    throw new Error('The code is wrong');
+  }
+
+  const codeOfLink = scode.slice(0, urlCodeLen);  
+  const readoutСrc = scode.slice(urlCodeLen);
+
+  const readoutСrcWidth = 2 ** readoutСrc.length;
+  const asciChars = getChunksOfString(codeOfLink, 2);
+  const generatedCrc = getCrc(readoutСrcWidth)(asciChars);
+  
+  if (parseInt(readoutСrc, 16) !== generatedCrc) {
+    throw new Error('Checksums CRC did not match');
+  }
+
+  const charCodes = asciChars.map(code => parseInt(code, 16));
+  const resQueryParam = String.fromCharCode(...charCodes);
+  
+  return resQueryParam;
+};
