@@ -19,18 +19,18 @@ class CRC {
       throw 'Invalid CRC width';
     }
 
-    if (arguments.length == 4) {
+    if (arguments.length === 4) {
       this.polynom = arguments[1];
       this.initialVal = arguments[2];
       this.finalXorVal = arguments[3];
-    } else if (arguments.length != 1) {
-      throw "Invalid arguments";
+    } else if (arguments.length !== 1) {
+      throw 'Invalid arguments';
     }
 
     if (!Number.isInteger(this.polynom) ||
       !Number.isInteger(this.initialVal) ||
       !Number.isInteger(this.finalXorVal))
-      throw "Invalid arguments";
+      throw 'Invalid arguments';
 
     this.table = this.createCrcTable();
 
@@ -57,10 +57,10 @@ class CRC {
 
 
   calcCrc(bytes) {
-    if (!Array.isArray(bytes) || bytes.length == 0)
-      throw "It's not a array or empty array"
+    if (!Array.isArray(bytes) || bytes.length === 0)
+      throw 'It\'s not a array or empty array';
     let result = this.initialVal;
-    for (let b of bytes) {
+    for (const b of bytes) {
       const byte = parseInt(b, 16);
       result ^= (byte << (this.width - 8));
       const pos = (result >> (this.width - 8));
