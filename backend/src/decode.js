@@ -17,16 +17,15 @@ function stabilize(rays) {
     let correct = true;
 
     neededLen.forEach((item, i) => {
-      const ind = (iterator + ( step * i )) % len;
-      if(item !== rays[ind]){
+      const ind = (iterator + (step * i)) % len;
+      if (item !== rays[ind]) {
         correct = false;
       }
-    })
+    });
 
-    if(correct){
+    if (correct) {
       startFound = true;
-    }
-    else {
+    } else {
       iterator++;
     }
   }
@@ -68,7 +67,7 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   const readoutСrc = scode.slice(urlCodeLen);
 
   const readoutСrcWidth = 2 ** readoutСrc.length;
-  const asciiItemLen = 2; 
+  const asciiItemLen = 2;
   const asciChars = getChunksOfString(codeOfLink, asciiItemLen);
   const crc = new Crc(readoutСrcWidth);
   const generatedCrc = crc.calcCrc(asciChars);
@@ -101,7 +100,7 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
 };
 
 function getLink(rays, linkLen) {
-  const asciiItemLen = 2; 
+  const asciiItemLen = 2;
   const scodeLen = linkLen * asciiItemLen;
   const stabilized = stabilize(rays);
 
