@@ -1,6 +1,6 @@
 'use strict';
 
-const getCrc = require('./crc');
+const Crc = require('./crc');
 
 function stabilize(rays) {
   if (rays.length % 4 !== 0)
@@ -75,7 +75,8 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   const readoutСrcWidth = 2 ** readoutСrc.length;
   const asciiItemLen = 2; 
   const asciChars = getChunksOfString(codeOfLink, asciiItemLen);
-  const generatedCrc = getCrc(readoutСrcWidth)(asciChars);
+  const crc = new Crc(readoutСrcWidth);
+  const generatedCrc = crc.calcCrc(asciChars);
 
   if (parseInt(readoutСrc, 16) !== generatedCrc) {
     throw new Error('Checksums CRC did not match');
