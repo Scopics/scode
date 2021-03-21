@@ -115,4 +115,11 @@ function getLink(rays, linkLen) {
   return result;
 }
 
-module.exports = getLink;
+module.exports = {
+  stabilize,
+  removeGuides,
+  getChunksOfString,
+  decodeHexInQueryParam,
+  decodeDataFromImage,
+  getLink,
+};
