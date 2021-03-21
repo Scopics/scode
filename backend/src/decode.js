@@ -76,7 +76,7 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   if (readoutСrcWidth % 8 !== 0 ||
       readoutСrcWidth < 8 ||
       readoutСrcWidth > 32) {
-    throw new Error('Length of the cfs sum is invalid')
+    throw new Error('Length of the crc sum is invalid')
   }
 
   const asciiItemLen = 2;
