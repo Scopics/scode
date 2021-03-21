@@ -1,3 +1,5 @@
+'use strict';
+
 function codeItemASCII(item = '') {
   return item.charCodeAt().toString(16);
 }
@@ -5,3 +7,5 @@ function codeItemASCII(item = '') {
 function codeASCII(text) {
   return text.split('').map(item => codeItemASCII(item));
 }
+
+module.exports = { codeItemASCII, codeASCII };
