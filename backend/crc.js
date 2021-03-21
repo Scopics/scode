@@ -19,6 +19,14 @@ const createCrcTable = function (width, castMask, polynom) {
   return crcTable;
 }
 
+const crcParamsByWidth = {
+  '8': [0xFF, 0x07, 0x00, 0x00],
+  '16': [0xFFFF, 0x8005, 0x0000, 0x0000],
+  '32': [0xFFFFFFFF, 0x04C11DB7, 0xFFFFFFFF, 0xFFFFFFFF]
+}
+
+const partial = (fn, ...args) => (...rest) => fn(...args, ...rest);
+
 const getCrcByConfig = (crcConfig, width) => {
   let castMask, polynom, initialVal, finalXorVal;
   const paramsByWidth = crcConfig[width];
