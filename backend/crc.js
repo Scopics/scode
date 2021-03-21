@@ -19,32 +19,17 @@ const createCrcTable = function (width, castMask, polynom) {
   return crcTable;
 }
 
-const getCrc = (width) => {
+const getCrcByConfig = (crcConfig, width) => {
   let castMask, polynom, initialVal, finalXorVal;
-  switch (width) {
-    case 8:
-      castMask = 0xFF;
-      polynom = 0x07;
-      initialVal = 0x00;
-      finalXorVal = 0x00;
-      break;
-    case 16:
-      castMask = 0xFFFF;
-      polynom = 0x8005;
-      initialVal = 0x0000;
-      finalXorVal = 0x0000;
-      break;
-    case 32:
-      castMask = 0xFFFFFFFF;
-      polynom = 0x04C11DB7;
-      initialVal = 0xFFFFFFFF;
-      finalXorVal = 0xFFFFFFFF;
-      break;
-    default:
-      throw "Invalid CRC width";
-      break;
+  const paramsByWidth = crcConfig[width];
+  if (paramsByWidth) {
+    [ castMask, polynom, initialVal, finalXorVal ] = paramsByWidth;
+  } else {
+    throw 'Invalid CRC width';
   }
-  this.table = createCrcTable(width, castMask, polynom);
+  
+  const table = createCrcTable(width, castMask, polynom);
+  
 
   return (bytes) => {
     let crc = initialVal;
