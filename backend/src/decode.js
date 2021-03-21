@@ -121,8 +121,6 @@ function getLink(rays, linkLen) {
   return result;
 }
 
-console.log(decodeHexInQueryParam('782d526436665056364c38f868', 22))
-
 module.exports = {
   stabilize,
   removeGuides,
