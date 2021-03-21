@@ -110,7 +110,7 @@ function getLink(rays, linkLen) {
   const stabilized = stabilize(rays);
 
   const raysCoded = removeGuides(stabilized);
-  const result = decodeDataFromImage(raysCoded, scodeLen * 2);
+  const result = decodeDataFromImage(raysCoded, scodeLen);
   return result;
 }
 
