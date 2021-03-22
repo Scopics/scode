@@ -58,7 +58,7 @@ class CRC {
 
   calcCrc(bytes) {
     if (!Array.isArray(bytes) || bytes.length === 0)
-      throw 'It\'s not a array or empty array';
+      throw 'It\'s not an array or empty array';
     let result = this.initialVal;
     for (const b of bytes) {
       const byte = parseInt(b, 16);
