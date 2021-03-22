@@ -305,6 +305,18 @@ describe('Testing decodeHexInQueryParam', () => {
       decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
     }).toThrowError('Checksums CRC did not match');
   });
+
+  test('mocking getChunksOfString check times called in decodeHexInQueryParam', () => {
+    const getChunksOfStringMock = jest.spyOn(Decode, 'getChunksOfString');
+
+    const codedQueryParam = '43555534396a6a486c6f4df6c6';
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeHexInQueryParam(
+      codedQueryParam, lenOfcodeOfQueryParam
+    );
+    
+    expect(getChunksOfStringMock).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('Testing decodeDataFromImage', () => {
@@ -339,6 +351,17 @@ describe('Testing decodeDataFromImage', () => {
     expect(() => {
       decodeDataFromImage(lengthOfLines, lenOfcodeOfQueryParam);
     }).toThrowError('The code reading was not correct');
+  });
+
+  test('mocking decodeHexInQueryParam check times called in decodeDataFromImage', () => {
+    const decodeHexInQueryParamMock = jest.spyOn(Decode, 'decodeHexInQueryParam');
+    const lengthOfLines = [ 7, 4, 5, 2, 3, 9, 7, 9, 5, 15, 3, 3, 3, 1, 6, 10, 3, 9, 3, 1, 7, 7, 12, 5, 3, 0, 15, 10];
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeDataFromImage(
+      lengthOfLines, lenOfcodeOfQueryParam
+    );
+
+    expect(decodeHexInQueryParamMock).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -428,4 +451,33 @@ describe('Testing getLink', () => {
     }).toThrowError('Invalid link length');
   });
 
+  test('mocking removeGuides check times called in getLink', () => {
+    const removeGuidesMock = jest.spyOn(Decode, 'removeGuides');
+
+    const rays = [ 
+      15, 6, 3, 7, 3, 5, 0, 3, 
+      15, 3, 6, 10, 6, 11, 5, 3, 
+      0, 7, 2, 5, 7, 4, 12, 3, 
+      15, 4, 13, 6, 10, 6, 15, 10,
+    ];
+    const linkLen = 11;
+    const result = getLink(rays, linkLen);
+
+    expect(removeGuidesMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('mocking decodeDataFromImage check times called in getLink', () => {
+    const decodeDataFromImageMock = jest.spyOn(Decode, 'decodeDataFromImage');
+
+    const rays = [ 
+      15, 6, 3, 7, 3, 5, 0, 3, 
+      15, 3, 6, 10, 6, 11, 5, 3, 
+      0, 7, 2, 5, 7, 4, 12, 3, 
+      15, 4, 13, 6, 10, 6, 15, 10,
+    ];
+    const linkLen = 11;
+    const result = getLink(rays, linkLen);
+
+    expect(decodeDataFromImageMock).toHaveBeenCalledTimes(1);
+  });
 });
