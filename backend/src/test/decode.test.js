@@ -451,4 +451,33 @@ describe('Testing getLink', () => {
     }).toThrowError('Invalid link length');
   });
 
+  test('mocking removeGuides check times called in getLink', () => {
+    const removeGuidesMock = jest.spyOn(Decode, 'removeGuides');
+
+    const rays = [ 
+      15, 6, 3, 7, 3, 5, 0, 3, 
+      15, 3, 6, 10, 6, 11, 5, 3, 
+      0, 7, 2, 5, 7, 4, 12, 3, 
+      15, 4, 13, 6, 10, 6, 15, 10,
+    ];
+    const linkLen = 11;
+    const result = getLink(rays, linkLen);
+
+    expect(removeGuidesMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('mocking decodeDataFromImage check times called in getLink', () => {
+    const decodeDataFromImageMock = jest.spyOn(Decode, 'decodeDataFromImage');
+
+    const rays = [ 
+      15, 6, 3, 7, 3, 5, 0, 3, 
+      15, 3, 6, 10, 6, 11, 5, 3, 
+      0, 7, 2, 5, 7, 4, 12, 3, 
+      15, 4, 13, 6, 10, 6, 15, 10,
+    ];
+    const linkLen = 11;
+    const result = getLink(rays, linkLen);
+
+    expect(decodeDataFromImageMock).toHaveBeenCalledTimes(1);
+  });
 });
