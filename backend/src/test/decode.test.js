@@ -1,6 +1,7 @@
 const {
   stabilize,
   removeGuides,
+  getChunksOfString,
 } = require('../decode');
 
 describe('Testing stabilize', () => {
@@ -161,5 +162,50 @@ describe('Testing removeGuides', () => {
     expect(() => {
       removeGuides(rays);
     }).toThrowError('Array is empty or it is not an array');
+  });
+});
+
+
+describe('Testing getChunksOfString', () => {
+  test('Passes when string is devided inro two-len items', () => {
+    const str = 'qwertytrewq';
+    const size = 2;
+    const expected = [ 'qw', 'er', 'ty', 'tr', 'ew', 'q' ];
+    expect(getChunksOfString(str, size)).toEqual(expect.arrayContaining(expected));
+  });
+  
+  test('Passes when string is devided inro four-len items', () => {
+    const str = 'qwertytrewq';
+    const size = 4;
+    const expected = [ 'qwer', 'tytr', 'ewq' ];
+    expect(getChunksOfString(str, size)).toEqual(expect.arrayContaining(expected));
+  });
+  
+  test('Passes when size is bigger than str length', () => {
+    const str = 'qwertytrewq';
+    const size = 100;
+    const expected = [ 'qwertytrewq' ];
+    expect(getChunksOfString(str, size)).toEqual(expect.arrayContaining(expected));
+  });
+  
+  test('Fails when size is 0', () => {
+    const str = 'qwertytrewq';
+    const size = 0;
+    const expected = new Error('Invalid size value');
+    expect(() => getChunksOfString(str, size)).toThrowError(expected);
+  });
+  
+  test('Fails when size is less than 0', () => {
+    const str = 'qwertytrewq';
+    const size = -1;
+    const expected = new Error('Invalid size value');
+    expect(() => getChunksOfString(str, size)).toThrowError(expected);
+  });
+
+  test('Fails when string is empty', () => {
+    const str = '';
+    const size = 3;
+    const expected = new Error('Wrong str length');
+    expect(() => getChunksOfString(str, size)).toThrowError(expected);
   });
 });
