@@ -81,7 +81,7 @@ describe('Testing codeASCII', () => {
     expect(result).toEqual(expectedResult);
   });
 
-  test('Calls codeItemASCII', () => {
+  test('Mocking codeItemASCII. Check times called in codeASCII', () => {
     const codeItemASCIIMock = jest.spyOn(Utils, 'codeItemASCII');
     const text = '1<T';
     const result = codeASCII(text);

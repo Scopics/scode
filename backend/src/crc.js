@@ -32,16 +32,16 @@ class CRC {
       !Number.isInteger(this.finalXorVal))
       throw 'Invalid arguments';
 
-    this.table = this.createCrcTable();
+    this.table = this.createCrcTable(width);
 
   }
 
-  createCrcTable() {
-    const msbMask = 0x01 << (this.width - 1);
+  createCrcTable(width) {
+    const msbMask = 0x01 << (width - 1);
     const table = new Array(256);
 
     for (let i = 0; i < 256; i++) {
-      let byte = (i << (this.width - 8));
+      let byte = (i << (width - 8));
       for (let bit = 0; bit < 8; bit++) {
         if (byte & msbMask) {
           byte <<= 1;
