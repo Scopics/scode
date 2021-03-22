@@ -54,7 +54,7 @@ function removeGuides(rays) {
 }
 
 const getChunksOfString = (str, size) => {
-  if (size <= 0)
+  if (!(size > 0))
     throw new Error('Invalid size value');
   if (str.length === 0)
     throw new Error('Wrong str length');
@@ -120,6 +120,10 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
 };
 
 function getLink(rays, linkLen) {
+  if (!(rays.length > 0) || !Array.isArray(rays))
+    throw new Error('Array is empty or it is not an array');
+  if (!(linkLen > 0))
+    throw new Error('Invalid link length');
   const asciiItemLen = 2;
   const scodeLen = linkLen * asciiItemLen;
   const stabilized = stabilize(rays);

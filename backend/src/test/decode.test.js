@@ -5,7 +5,8 @@ const {
   removeGuides,
   getChunksOfString,
   decodeHexInQueryParam,
-  decodeDataFromImage
+  decodeDataFromImage,
+  getLink
 } = require('../decode');
 
 describe('Testing stabilize', () => {
@@ -338,4 +339,92 @@ describe('Testing decodeDataFromImage', () => {
       decodeDataFromImage(lengthOfLines, lenOfcodeOfQueryParam);
     }).toThrowError('The code reading was not correct');
   });
+});
+
+describe('Testing getLink', () => {
+  test('Passes when pass valid parameters', () => {
+    const arr = [
+    15, 6, 3, 7, 3, 5, 0, 3,
+    15, 3, 6, 10, 6, 11, 5, 3,
+    0, 7, 2, 5, 7, 4, 12, 3,
+    15, 4, 13, 6, 10, 6, 15, 10
+    ];
+    const linkLen = 11;
+    const result = getLink(arr, linkLen);
+    const expectedResult = 'csP3jkSrWL4';
+    expect(result).toEqual(expectedResult);
+  });
+
+  test('Passes when pass valid parameters with offset: 5', () => {
+    const arr = [
+    6, 10, 6, 15, 10, 15,
+    6, 3, 7, 3, 5, 0, 3, 15,
+    3, 6, 10, 6, 11, 5, 3, 0,
+    7, 2, 5, 7, 4, 12, 3, 15,
+    4, 13
+    ];
+    const linkLen = 11;
+    const result = getLink(arr, linkLen);
+    const expectedResult = 'csP3jkSrWL4';
+    expect(result).toEqual(expectedResult);
+  });
+
+  test('Fails when link length is wrong', () => {
+    const arr = [
+    6, 10, 6, 15, 10, 15,
+    6, 3, 7, 3, 5, 0, 3, 15,
+    3, 6, 10, 6, 11, 5, 3, 0,
+    7, 2, 5, 7, 4, 12, 3, 15,
+    4, 13
+    ];
+    const linkLen = 12;
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Checksums CRC did not match');
+  });
+
+  test('Fails when array length is not divisable by 4', () => {
+    const arr = [
+    6, 10, 6, 15, 10, 15,
+    6, 3, 7, 3, 5, 0, 3, 15,
+    3, 6, 10, 6, 11, 5, 3, 0,
+    7, 2, 5, 7, 4, 12, 3, 15,
+    4, 13, 14
+    ];
+    const linkLen = 12;
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Invalid array length');
+  });
+
+  test('Fails when pass an empty array', () => {
+    const arr = [];
+    const linkLen = 11;
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Array is empty or it is not an array');
+  });
+
+  test('Fails when pass not an array', () => {
+    const arr = { key1: 'value1'};
+    const linkLen = 11;
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Array is empty or it is not an array');
+  });
+
+  test('Fails when pass wrong link length', () => {
+    const arr = [
+        6, 10, 6, 15, 10, 15,
+        6, 3, 7, 3, 5, 0, 3, 15,
+        3, 6, 10, 6, 11, 5, 3, 0,
+        7, 2, 5, 7, 4, 12, 3, 15,
+        4, 13
+        ];
+    const linkLen = { key1: 'value1' };
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Invalid link length');
+  });
+
 });
