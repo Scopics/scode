@@ -2,7 +2,9 @@
 
 const Crc = require('./crc');
 
-function stabilize(rays) {
+const Decode = {};
+
+Decode.stabilize = function (rays) {
   if (rays.length % 4 !== 0)
     throw new Error('Invalid array length');
   const len = rays.length;
@@ -37,7 +39,7 @@ function stabilize(rays) {
   return stabilized;
 }
 
-function removeGuides(rays) {
+Decode.removeGuides  = function (rays) {
   if (!(rays.length > 0) || !Array.isArray(rays))
     throw new Error('Array is empty or it is not an array');
   if (rays.length % 4 !== 0)
@@ -53,7 +55,7 @@ function removeGuides(rays) {
   return raysCopy;
 }
 
-const getChunksOfString = (str, size) => {
+Decode.getChunksOfString = (str, size) => {
   if (!(size > 0))
     throw new Error('Invalid size value');
   if (str.length === 0)
@@ -67,7 +69,7 @@ const getChunksOfString = (str, size) => {
   return chunks;
 };
 
-const decodeHexInQueryParam = (scode, urlCodeLen) => {
+Decode.decodeHexInQueryParam = (scode, urlCodeLen) => {
   const scodeLen = scode.length;
 
   if (scodeLen < urlCodeLen || !scodeLen) {
@@ -84,7 +86,7 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   }
 
   const asciiItemLen = 2;
-  const asciChars = getChunksOfString(codeOfLink, asciiItemLen);
+  const asciChars = Decode.getChunksOfString(codeOfLink, asciiItemLen);
   const crc = new Crc(readoutСrcWidth);
   const generatedCrc = crc.calcCrc(asciChars);
 
@@ -98,7 +100,7 @@ const decodeHexInQueryParam = (scode, urlCodeLen) => {
   return resQueryParam;
 };
 
-const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
+Decode.decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
   const END_CODE = 'fa';
   const len = lengthOfLines.length;
   if (!len || !Array.isArray(lengthOfLines)) {
@@ -115,29 +117,23 @@ const decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
   }
 
   scodeHex = scodeHex.slice(0, len - 2);
-  const res = decodeHexInQueryParam(scodeHex, urlCodeLen);
+  const res = Decode.decodeHexInQueryParam(scodeHex, urlCodeLen);
   return res;
 };
 
-function getLink(rays, linkLen) {
+Decode.getLink  = function (rays, linkLen) {
   if (!(rays.length > 0) || !Array.isArray(rays))
     throw new Error('Array is empty or it is not an array');
   if (!(linkLen > 0))
     throw new Error('Invalid link length');
   const asciiItemLen = 2;
   const scodeLen = linkLen * asciiItemLen;
-  const stabilized = stabilize(rays);
+  const stabilized = Decode.stabilize(rays);
 
-  const raysCoded = removeGuides(stabilized);
-  const result = decodeDataFromImage(raysCoded, scodeLen);
+  const raysCoded = Decode.removeGuides(stabilized);
+  const result = Decode.decodeDataFromImage(raysCoded, scodeLen);
   return result;
 }
 
-module.exports = {
-  stabilize,
-  removeGuides,
-  getChunksOfString,
-  decodeHexInQueryParam,
-  decodeDataFromImage,
-  getLink,
-};
+
+module.exports = Decode;

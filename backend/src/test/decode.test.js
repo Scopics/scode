@@ -1,13 +1,14 @@
 'use strict';
 
-const {
+const Decode = require('../decode');
+ const {
   stabilize,
   removeGuides,
   getChunksOfString,
   decodeHexInQueryParam,
   decodeDataFromImage,
   getLink
-} = require('../decode');
+} = Decode;
 
 describe('Testing stabilize', () => {
   test('Passes when rays in right order', () => {
