@@ -1,6 +1,6 @@
 'use strict';
-
-const { codeItemASCII, codeASCII } = require('../utils');
+const Utils = require('../utils');
+const { codeItemASCII, codeASCII } = Utils;
 
 describe('Testing codeItemASCII', () => {
   test('Passes when pass valid parameters', () => {
@@ -79,5 +79,12 @@ describe('Testing codeASCII', () => {
     
     const expectedResult = ['39', '31', '30', '31'];
     expect(result).toEqual(expectedResult);
+  });
+
+  test('Calls codeItemASCII', () => {
+    const codeItemASCIIMock = jest.spyOn(Utils, 'codeItemASCII');
+    const text = '1<T';
+    const result = codeASCII(text);
+    expect(codeItemASCIIMock).toHaveBeenCalledTimes(3);
   });
 });

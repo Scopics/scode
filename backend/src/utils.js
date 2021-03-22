@@ -1,17 +1,19 @@
 'use strict';
 
-function codeItemASCII(item = '') {
+const Utils = {};
+
+Utils.codeItemASCII = function (item = '') {
   if(item.length === 0 || typeof item !== 'string') throw new Error('Argument is not a char');
   return item.charCodeAt().toString(16);
 }
 
-function codeASCII(text) {
+Utils.codeASCII  = function (text) {
   let dataToDecoding = text;
   if (Array.isArray(text)) dataToDecoding = text.join('');
   return dataToDecoding
     .toString()
     .split('')
-    .map(item => codeItemASCII(item));
+    .map(item => Utils.codeItemASCII(item));
 }
 
-module.exports = { codeItemASCII, codeASCII };
+module.exports = Utils;

@@ -428,4 +428,16 @@ describe('Testing getLink', () => {
     }).toThrowError('Invalid link length');
   });
 
+  test('Calls stabilize', () => {
+    const stabilizeMock = jest.spyOn(Decode, 'stabilize');
+    const arr = [
+      15, 6, 3, 7, 3, 5, 0, 3,
+      15, 3, 6, 10, 6, 11, 5, 3,
+      0, 7, 2, 5, 7, 4, 12, 3,
+      15, 4, 13, 6, 10, 6, 15, 10
+      ];
+      const linkLen = 11;
+      getLink(arr, linkLen);
+    expect(stabilizeMock).toHaveBeenCalledTimes(1);
+  });
 });
