@@ -1,6 +1,6 @@
 'use strict';
 
-const { codeItemASCII } = require('./../src/utils');
+const { codeItemASCII } = require('../utils');
 
 describe('Testing codeItemASCII', () => {
     test('Passes when pass valid parameters', () => {
