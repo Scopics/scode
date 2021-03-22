@@ -107,20 +107,4 @@ describe('Testing CRC', () => {
     expect(result.toString(16)).toBe(expectedResult);
   });
 
-  test('mocking createCrcTable check times called', () => {  
-    const width = 16;
-    const crcMock = jest.spyOn(CRC.prototype, 'createCrcTable');
-    const crc16 = new CRC(width);
-    const data = ['68', '65', '6c', '6c', '6f'];
-    const result = crc16.calcCrc(data);
-    expect(crcMock).toHaveBeenCalledTimes(1);
-  });
-
-  test('mocking createCrcTable check argument', () => {      
-    const width = 8;
-    const crcMock = jest.spyOn(CRC.prototype, 'createCrcTable');
-    const crc8 = new CRC(width);
-    expect(crcMock).toHaveBeenCalledWith(width);
-  });  
-  
 });
