@@ -1,7 +1,11 @@
+'use strict';
+
 const {
   stabilize,
   removeGuides,
   getChunksOfString,
+  decodeHexInQueryParam,
+  decodeDataFromImage
 } = require('../decode');
 
 describe('Testing stabilize', () => {
@@ -207,5 +211,96 @@ describe('Testing getChunksOfString', () => {
     const size = 3;
     const expected = new Error('Wrong str length');
     expect(() => getChunksOfString(str, size)).toThrowError(expected);
+  });
+});
+
+describe('Testing decodeHexInQueryParam', () => {
+  test('Passes when valid parameters transfer with 32 bit crc', () => {
+    const codedQueryParam = '43555534396a6a486c6f4d1584d5ff';
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeHexInQueryParam(
+      codedQueryParam, lenOfcodeOfQueryParam
+    );
+    
+    const expectedResult = 'CUU49jjHloM';
+    expect(result).toBe(expectedResult);
+  });
+
+  test('Passes when valid parameters transfer with 16 bit crc', () => {
+    const codedQueryParam = '43555534396a6a486c6f4df6c6';
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeHexInQueryParam(
+      codedQueryParam, lenOfcodeOfQueryParam
+    );
+    
+    const expectedResult = 'CUU49jjHloM';
+    expect(result).toBe(expectedResult);
+  });
+
+  test('Passes when valid parameters transfer with 8 bit crc', () => {
+    const codedQueryParam = '43555534396a6a486c6f4d5f';
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeHexInQueryParam(
+      codedQueryParam, lenOfcodeOfQueryParam
+    );
+    
+    const expectedResult = 'CUU49jjHloM';
+    expect(result).toBe(expectedResult);
+  });
+
+  test('Passes when pass a string with a length less than the checksum', () => {
+    const codedQueryParam = '68697170';
+    const lenOfcodeOfQueryParam = 4;
+    const result = decodeHexInQueryParam(
+      codedQueryParam, lenOfcodeOfQueryParam
+    );
+    
+    const expectedResult = 'hi';
+    expect(result).toBe(expectedResult);
+  });
+
+  test('Fail when pass an empty string', () => {
+    const codedQueryParam = '';
+    const lenOfcodeOfQueryParam = 0;
+   
+    expect(() => {
+      decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
+    }).toThrowError('The code is wrong');
+  });
+
+  test('Fail when pass code length of encoded characters longer than allowed', () => {
+    const codedQueryParam = '43555534396a6a486c6f4d5f';
+    const lenOfcodeOfQueryParam = 100;
+
+    expect(() => {
+      decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
+    }).toThrowError('The code is wrong');
+  });
+
+  test('Fail when pass a code with a crc not a multiple of 8 bits', () => {
+    const codedQueryParam = '43555534396a6a486c6f4d5f2';
+    const lenOfcodeOfQueryParam = 22;
+
+    expect(() => {
+      decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
+    }).toThrowError('Length of the crc sum is invalid');
+  });
+
+  test('Fail when pass a code with a crc more than 32 bits', () => {
+    const codedQueryParam = '43555534396a6a486c6f4d5f123456789';
+    const lenOfcodeOfQueryParam = 22;
+
+    expect(() => {
+      decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
+    }).toThrowError('Length of the crc sum is invalid');
+  });
+
+  test('Fail when pass the code with an invalid checksum', () => {
+    const codedQueryParam = '43555534396a6a486c6f1234';
+    const lenOfcodeOfQueryParam = 22;
+
+    expect(() => {
+      decodeHexInQueryParam(codedQueryParam, lenOfcodeOfQueryParam);
+    }).toThrowError('Checksums CRC did not match');
   });
 });
