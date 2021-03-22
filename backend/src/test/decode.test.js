@@ -1,5 +1,6 @@
 const {
   stabilize,
+  removeGuides,
 } = require('../decode');
 
 describe('Testing stabilize', () => {
@@ -91,7 +92,7 @@ describe('Testing stabilize', () => {
   test('Fails when rays filled with items of same length', () => {
     const rays = [
       15, 15, 15, 15, 15, 15, 15, 15, 
-      15, 15, 15, 15, 15, 15, 15, 15, 
+      15, 15, 15, 15, 15, 15, 15, 15,
       15, 15, 15, 15, 15, 15, 15, 15, 
       15, 15, 15, 15, 15, 15, 15, 15
     ];
@@ -99,25 +100,14 @@ describe('Testing stabilize', () => {
     expect(() => stabilize(rays)).toThrowError(expected);
   });
   
-  test('Fails when rays are not devided by 4', () => {
+  test('Fails when rays are not divided by 4', () => {
     const rays = [
       15, 10, 15, 6, 3, 7, 3, 5, 
       0, 3, 15, 3, 6, 10, 6, 11, 
       5, 3, 0, 7, 2, 5, 7, 4, 
       12, 3, 15, 4, 13, 6, 10,
     ];
-    const expected = new Error('Something is wrong...')
-    expect(() => stabilize(rays)).toThrowError(expected);
-  });
-  
-  test('Fails when rays are not devided by 4', () => {
-    const rays = [
-      15, 10, 15, 6, 3, 7, 3, 5, 
-      0, 3, 15, 3, 6, 10, 6, 11, 
-      5, 3, 0, 7, 2, 5, 7, 4, 
-      12, 3, 15, 4, 13, 6, 10,
-    ];
-    const expected = new Error('Something is wrong...')
+    const expected = new Error('Invalid array length')
     expect(() => stabilize(rays)).toThrowError(expected);
   });
 });
@@ -145,7 +135,7 @@ describe('Testing removeGuides', () => {
   });
 
   test('Fails when pass not an array', () => {
-    const rays = { key1: value1 };
+    const rays = { key1: 'value1' };
     expect(() => {
       removeGuides(rays);
     }).toThrowError('Array is empty or it is not an array');

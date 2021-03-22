@@ -1,6 +1,7 @@
 'use strict';
 
 function codeItemASCII(item = '') {
+  if(item.length === 0) throw new Error('This is not a char');
   return item.charCodeAt().toString(16);
 }
 

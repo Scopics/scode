@@ -4,7 +4,7 @@ const Crc = require('./crc');
 
 function stabilize(rays) {
   if (rays.length % 4 !== 0)
-    throw new Error('Something is wrong...');
+    throw new Error('Invalid array length');
   const len = rays.length;
   const sides = 4;
   const step = len / sides;
@@ -38,6 +38,10 @@ function stabilize(rays) {
 }
 
 function removeGuides(rays) {
+  if (!(rays.length > 0) || ! Array.isArray(rays))
+    throw new Error('Array is empty or it is not an array');
+  if (rays.length % 4 !== 0)
+    throw new Error('Invalid array length');
   const raysCopy = [...rays];
   const sides = 4;
   const step = rays.length / sides;
