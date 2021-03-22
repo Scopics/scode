@@ -38,7 +38,7 @@ function stabilize(rays) {
 }
 
 function removeGuides(rays) {
-  if (!(rays.length > 0) || ! Array.isArray(rays))
+  if (!(rays.length > 0) || !Array.isArray(rays))
     throw new Error('Array is empty or it is not an array');
   if (rays.length % 4 !== 0)
     throw new Error('Invalid array length');
