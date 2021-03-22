@@ -304,3 +304,38 @@ describe('Testing decodeHexInQueryParam', () => {
     }).toThrowError('Checksums CRC did not match');
   });
 });
+
+describe('Testing decodeDataFromImage', () => {
+  test('Passes when pass valid parameters', () => {
+    const lengthOfLines = [ 7, 4, 5, 2, 3, 9, 7, 9, 5, 15, 3, 3, 3, 1, 6, 10, 3, 9, 3, 1, 7, 7, 12, 5, 3, 0, 15, 10];
+    const lenOfcodeOfQueryParam = 22;
+    const result = decodeDataFromImage(
+      lengthOfLines, lenOfcodeOfQueryParam
+    );
+    
+    const expectedResult = 'tR9y_31j91w';
+    expect(result).toBe(expectedResult);
+  });
+
+  test('Fail when pass empty array / anything other than an array', () => {
+    const lengthOfLines1 = [];
+    const lengthOfLines2 = { key1: 'value1' };
+    const lenOfcodeOfQueryParam = 22;
+
+    expect(() => {
+      decodeDataFromImage(lengthOfLines1, lenOfcodeOfQueryParam);
+    }).toThrowError('Array of lengths is empty or it is not an array');
+    expect(() => {
+      decodeDataFromImage(lengthOfLines2, lenOfcodeOfQueryParam);
+    }).toThrowError('Array of lengths is empty or it is not an array');
+  });
+
+  test('Fail when the two lengths of the last rays of the non-constant value \'fa\'', () => {
+    const lengthOfLines = [ 7, 4, 5, 2, 3, 9, 7, 9, 5, 15, 3, 3, 3, 1, 6, 10, 3, 9, 3, 1, 7, 7, 12, 5, 3, 0, 12, 11];
+    const lenOfcodeOfQueryParam = 22;
+
+    expect(() => {
+      decodeDataFromImage(lengthOfLines, lenOfcodeOfQueryParam);
+    }).toThrowError('The code reading was not correct');
+  });
+});
