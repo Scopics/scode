@@ -445,6 +445,20 @@ describe('Testing getLink', () => {
         7, 2, 5, 7, 4, 12, 3, 15,
         4, 13
         ];
+    const linkLen = -1;
+    expect(() => {
+      getLink(arr, linkLen);
+    }).toThrowError('Invalid link length');
+  });
+
+  test('Fails when pass link length that is not a number', () => {
+    const arr = [
+        6, 10, 6, 15, 10, 15,
+        6, 3, 7, 3, 5, 0, 3, 15,
+        3, 6, 10, 6, 11, 5, 3, 0,
+        7, 2, 5, 7, 4, 12, 3, 15,
+        4, 13
+        ];
     const linkLen = { key1: 'value1' };
     expect(() => {
       getLink(arr, linkLen);

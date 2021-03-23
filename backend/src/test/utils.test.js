@@ -17,6 +17,13 @@ describe('Testing codeItemASCII', () => {
     }).toThrowError('Argument is not a char');
   });
 
+  test('Fails when pass anything not a char', () => {
+    const char = {};
+    expect(() => {
+      codeItemASCII(char);
+    }).toThrowError('Argument is not a char');
+  });
+
   test('Fails when pass an array', () => {
     const char = ['a', 'b', 'c'];
     expect(() => {
