@@ -173,14 +173,14 @@ describe('Testing removeGuides', () => {
 
 
 describe('Testing getChunksOfString', () => {
-  test('Passes when string is devided inro two-len items', () => {
+  test('Passes when string is divided into two-len items', () => {
     const str = 'qwertytrewq';
     const size = 2;
     const expected = [ 'qw', 'er', 'ty', 'tr', 'ew', 'q' ];
     expect(getChunksOfString(str, size)).toEqual(expect.arrayContaining(expected));
   });
   
-  test('Passes when string is devided inro four-len items', () => {
+  test('Passes when string is divided into four-len items', () => {
     const str = 'qwertytrewq';
     const size = 4;
     const expected = [ 'qwer', 'tytr', 'ewq' ];
