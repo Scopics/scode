@@ -10,6 +10,13 @@ describe('Testing codeItemASCII', () => {
     expect(result).toEqual(expectedResult);
   });
 
+  test('Passes when pass symbol', () => {
+    const char = '_';
+    const result = codeItemASCII(char);
+    const expectedResult = '5f';
+    expect(result).toEqual(expectedResult);
+  });
+
   test('Fails when pass a number', () => {
     const char = 1;
     expect(() => {
