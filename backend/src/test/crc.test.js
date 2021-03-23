@@ -57,11 +57,12 @@ describe('Testing CRC', () => {
     expect(result.toString(16)).toBe(expectedResult);
   });
 
-  test('Passes when calcCrc get not an array', () => {
+  test('Fail when calcCrc get not an array', () => {
     const crc16 = new CRC(16);
     expect(() => crc16.calcCrc(false)).toThrowError('It\'s not an array');
     expect(() => crc16.calcCrc(12345)).toThrowError('It\'s not an array');
     expect(() => crc16.calcCrc(null)).toThrowError('It\'s not an array');
+    expect(() => crc16.calcCrc(undefined)).toThrowError('It\'s not an array');
     expect(() => crc16.calcCrc({ one: '68', two: '65', three: '6c' }))
       .toThrowError('It\'s not an array');
   });
@@ -73,9 +74,9 @@ describe('Testing CRC', () => {
   });
 
   test('Passes calcCrc for crc8', () => {
-    const crc16 = new CRC(8);
+    const crc8 = new CRC(8);
     const data = ['61', '56', '67', '6c', '6f', '68', '65'];
-    const result = crc16.calcCrc(data);
+    const result = crc8.calcCrc(data);
     const expectedResult = 'fe';
     expect(result.toString(16)).toBe(expectedResult);
   });
@@ -89,9 +90,9 @@ describe('Testing CRC', () => {
   });
 
   test('Passes when calcCrc for crc32', () => {
-    const crc16 = new CRC(32);
+    const crc32 = new CRC(32);
     const data = ['68', '65', '6c', '6c', '6f'];
-    const result = crc16.calcCrc(data);
+    const result = crc32.calcCrc(data);
     const expectedResult = '6b1584d5';
     expect(result.toString(16)).toBe(expectedResult);
   });
@@ -107,7 +108,7 @@ describe('Testing CRC', () => {
     expect(result.toString(16)).toBe(expectedResult);
   });
 
-  test('mocking createCrcTable check times called', () => {
+  test('Passes when createCrcTable called only 1 times', () => {
     const width = 16;
     const crcMock = jest.spyOn(CRC.prototype, 'createCrcTable');
     const crc16 = new CRC(width);
@@ -116,7 +117,7 @@ describe('Testing CRC', () => {
     expect(crcMock).toHaveBeenCalledTimes(1);
   });
 
-  test('mocking createCrcTable check argument', () => {
+  test('Passes when createCrcTable get valid params', () => {
     const width = 8;
     const crcMock = jest.spyOn(CRC.prototype, 'createCrcTable');
     const crc8 = new CRC(width);
