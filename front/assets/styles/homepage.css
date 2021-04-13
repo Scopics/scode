@@ -4,7 +4,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   line-height: 1.5;
-  background: #2d2d2d;
+  background-color: #2d2d2d;
 }
 
 *,
@@ -176,6 +176,36 @@ h1, h2, h3, h4, h5, h6 {
   color: #ff3d00;
 }
 
+
+/* Devices */
+
+.devices {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.ipad {
+  position: absolute;
+
+  bottom: -40px;
+  height: 500px;
+  display: block;
+  max-width: 100%;
+}
+
+.iphone {
+  position: absolute;
+
+  bottom: -90px;
+  right: -40px;
+  display: block;
+  max-width: 100%;
+  z-index: 1;
+}
+
+
 /* Footer */
 
 .footer:before {
@@ -184,14 +214,14 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 
   width: 98%;
-  height: .4px;
+  height: .6px;
   left: 50%;
   z-index: -1;
   
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 
-  background: #e7e7e7;
+  background: #ff3d00;
 }
 
 .footer_inner {
