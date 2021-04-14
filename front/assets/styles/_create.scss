@@ -2,6 +2,12 @@ $main-page-color: #2d2d2d;
 
 body {
   position: relative;
+  overflow-x: hidden;
+}
+
+section#create.pop-up {
+  transform: translateX(110%);
+  transition-duration: 1.5s;
 }
 
 section#create {

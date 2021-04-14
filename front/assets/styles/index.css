@@ -1112,6 +1112,14 @@
 
 body {
   position: relative;
+  overflow-x: hidden;
+}
+
+section#create.pop-up {
+  -webkit-transform: translateX(110%);
+          transform: translateX(110%);
+  -webkit-transition-duration: 1.5s;
+          transition-duration: 1.5s;
 }
 
 section#create {
