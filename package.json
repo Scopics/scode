@@ -1,10 +1,9 @@
 {
   "name": "scode",
-  "version": "0.0.1",
-  "description": "",
+  "version": "1.0.0",
+  "description": "![Logo](https://raw.githubusercontent.com/MaksGovor/Images/master/Voting-system/logoScode.png)",
   "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
