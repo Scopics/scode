@@ -5,7 +5,7 @@ import { CrcModule } from '../crc/crc.module';
 @Module({})
 export class DecodeModule {
 
-    stabilize(rays: number[]): number[] {
+    static stabilize(rays: number[]): number[] {
         if (rays.length % 4 !== 0)
           throw new Error('Invalid array length');
         const len = rays.length;
@@ -40,7 +40,7 @@ export class DecodeModule {
         return stabilized;
       }
     
-      removeGuides(rays: number[]): number[] {
+    static removeGuides(rays: number[]): number[] {
         if (!(rays.length > 0) || !Array.isArray(rays))
           throw new Error('Array is empty or it is not an array');
         if (rays.length % 4 !== 0)
@@ -56,7 +56,7 @@ export class DecodeModule {
         return raysCopy;
       }
     
-      getChunksOfString = (str, size) => {
+    static getChunksOfString = (str, size) => {
         if (!(size > 0))
           throw new Error('Invalid size value');
         if (str.length === 0)
@@ -70,7 +70,7 @@ export class DecodeModule {
         return chunks;
       }
     
-      decodeHexInQueryParam = (scode, urlCodeLen) => {
+    static decodeHexInQueryParam = (scode, urlCodeLen) => {
         const scodeLen = scode.length;
       
         if (scodeLen < urlCodeLen || !scodeLen) {
@@ -87,7 +87,7 @@ export class DecodeModule {
         }
       
         const asciiItemLen = 2;
-        const asciChars = this.getChunksOfString(codeOfLink, asciiItemLen);
+        const asciChars = DecodeModule.getChunksOfString(codeOfLink, asciiItemLen);
         const crc = new CrcModule(readoutСrcWidth);
         const generatedCrc = crc.calcCrc(asciChars);
       
@@ -99,9 +99,9 @@ export class DecodeModule {
         const resQueryParam = String.fromCharCode(...charCodes);
       
         return resQueryParam;
-      }
+    }
     
-      decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
+    static decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
         const END_CODE = 'fa';
         const len = lengthOfLines.length;
         if (!len || !Array.isArray(lengthOfLines)) {
@@ -118,22 +118,22 @@ export class DecodeModule {
         }
       
         scodeHex = scodeHex.slice(0, len - 2);
-        const res = this.decodeHexInQueryParam(scodeHex, urlCodeLen);
+        const res = DecodeModule.decodeHexInQueryParam(scodeHex, urlCodeLen);
         return res;
-      }
+    }
     
-      getLink(rays, linkLen) {
+    static getLink(rays, linkLen) {
         if (!(rays.length > 0) || !Array.isArray(rays))
           throw new Error('Array is empty or it is not an array');
         if (!(linkLen > 0))
           throw new Error('Invalid link length');
         const asciiItemLen = 2;
         const scodeLen = linkLen * asciiItemLen;
-        const stabilized = this.stabilize(rays);
+        const stabilized = DecodeModule.stabilize(rays);
       
-        const raysCoded = this.removeGuides(stabilized);
-        const result = this.decodeDataFromImage(raysCoded, scodeLen);
+        const raysCoded = DecodeModule.removeGuides(stabilized);
+        const result = DecodeModule.decodeDataFromImage(raysCoded, scodeLen);
         return result;
-      }
+    }
 
 }
