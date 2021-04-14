@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppModule } from '../app.module';
 import { CrcModule } from '../crc/crc.module';
+import { DecodeController } from './decode.controller';
 
-@Module({})
+@Module({
+  controllers: [DecodeController]
+})
 export class DecodeModule {
 
     static stabilize(rays: number[]): number[] {
@@ -122,7 +125,7 @@ export class DecodeModule {
         return res;
     }
     
-    static getLink(rays, linkLen) {
+    static getLink(rays, linkLen = 11) {
         if (!(rays.length > 0) || !Array.isArray(rays))
           throw new Error('Array is empty or it is not an array');
         if (!(linkLen > 0))

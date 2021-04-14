@@ -1,15 +1,8 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { get } from 'node:http';
+import { DecodeModule } from '../decode/decode.module';
 
 @Controller('encode')
 export class EncodeController {
-    @Post()
-    create(): string{
-        return "input";
-    }
-
-    @Get()
-    findAll(): string{
-        return "output";
-    }
+    
 }
