@@ -11,9 +11,10 @@ export class EncodeModule {
         const rays = data.join('') + crc.toString(16) + 'fa';
         const raysArr = [];
         const specialRays = [15, 15, 0, 15];
+        const iterator = rays.length / 4;
         for (let i = 0; i < rays.length; i++) {
-            if (i % 7 == 0) {
-                raysArr.push(specialRays[i/7]);
+            if (i % iterator == 0) {
+                raysArr.push(specialRays[i / iterator]);
                 raysArr.push(parseInt(rays[i], 16));
             } else raysArr.push(parseInt(rays[i], 16));
         }
