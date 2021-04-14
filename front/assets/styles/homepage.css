@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Container */
 
-.container {
+.container-fv {
   padding: 0 15px;
   width: 100%;
   max-width: 1320px;
@@ -31,7 +31,6 @@ h1, h2, h3, h4, h5, h6 {
 .header {
   width: 100%;
   padding: 10px 0px;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -176,7 +175,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #e7e7e7;
   color: #ff3d00;
 }
-
 
 /* Devices */
 
