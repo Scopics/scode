@@ -13,6 +13,6 @@ export class UtilsModule {
         return dataToDecoding
           .toString()
           .split('')
-          .map(item => this.codeItemASCII(item));
+          .map(item => UtilsModule.codeItemASCII(item));
     }
 }
