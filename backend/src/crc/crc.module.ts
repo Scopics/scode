@@ -1,16 +1,15 @@
-'use strict';
+import { Module } from '@nestjs/common';
 
+@Module({})
+export class CrcModule {
+    width: number;
+    castMask: number;
+    polynom: number;
+    initialVal: number;
+    finalXorVal: number;
+    table: number[];
 
-class CRC {
-
-  width: number;
-  castMask: number;
-  polynom: number;
-  initialVal: number;
-  finalXorVal: number;
-  table: number[];
-
-  constructor(width, ...params) {
+    constructor(width: number, ...params) {
 
     // width: [castMask, polynom, initialVal, finalXorVal]
     const crcParamsByWidth = {
@@ -44,7 +43,7 @@ class CRC {
 
   }
 
-  createCrcTable(width) {
+  createCrcTable(width: number) {
     const msbMask = 0x01 << (width - 1);
     const table = new Array(256);
 
@@ -76,7 +75,4 @@ class CRC {
     }
     return (result ^ this.finalXorVal);
   }
-
 }
-
-module.exports = CRC;
