@@ -8,19 +8,14 @@ export class EncodeModule {
         const data = EncodeModule.hexGenerator(link);
         const crc16 = new CrcModule(16);
         const crc = crc16.calcCrc(data);
-        const rays = data.join('') + crc.toString(16);
+        const rays = data.join('') + crc.toString(16) + 'fa';
         const raysArr = [];
         const specialRays = [15, 15, 0, 15];
-        let i = 0;
-        while(i < rays.length+4) {
-            if (i % 8 == 0) {
-                raysArr[i] = specialRays[i/8];
-                raysArr[i + 1] = parseInt(rays[i], 16);
-                i+=2;
-            } else {
-                raysArr[i] = parseInt(rays[i], 16);
-                i++;
-            }
+        for (let i = 0; i < rays.length; i++) {
+            if (i % 7 == 0) {
+                raysArr.push(specialRays[i/7]);
+                raysArr.push(parseInt(rays[i], 16));
+            } else raysArr.push(parseInt(rays[i], 16));
         }
         return raysArr;
     }
