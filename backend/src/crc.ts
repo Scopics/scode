@@ -2,6 +2,14 @@
 
 
 class CRC {
+
+  width: number;
+  castMask: number;
+  polynom: number;
+  initialVal: number;
+  finalXorVal: number;
+  table: number[];
+
   constructor(width, ...params) {
 
     // width: [castMask, polynom, initialVal, finalXorVal]
