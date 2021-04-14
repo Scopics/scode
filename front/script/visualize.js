@@ -7,6 +7,7 @@ const LINE_SCALE = MAX_RADIUS / COUNTING_SYSTEM;
 const SERVICE_RAYS = 4;
 const QUARTERS = 4;
 const MAX_ANGLE = Math.PI * 2;
+const bgColor = '#2d2d2d';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -15,8 +16,18 @@ const mid = {
   y: canvas.height / 2
 };
 
-function drawScode(code) {
+function fillScode(fillColor = bgColor) {
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = fillColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawScode(code, bg = '#fff', color = '#000') {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  fillScode(bg);
+  ctx.strokeStyle = color;
+
   quantity = code.length + SERVICE_RAYS;
   quantity += ceilToStep(quantity, QUARTERS)
 

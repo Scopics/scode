@@ -1,0 +1,12 @@
+$main-page-color: #2d2d2d;
+$border-color: #d8d8d8;
+
+.pop-up {
+  
+  .pop-up-header {
+    border-bottom: 1px solid $border-color;
+    display: grid;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+}

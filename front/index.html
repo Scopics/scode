@@ -11,6 +11,7 @@
   integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" 
   crossorigin="anonymous">
   <link rel="stylesheet" href="./assets/styles/homepage.css">
+  <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
 <body>
 
@@ -19,10 +20,10 @@
     <div class="header_logo">Scode</div>
     
     <nav class="nav">
-      <a href="#" class="nav_link">Get scode</a>
-      <a href="#" class="nav_link">Best Practices</a>
-      <a href="#" class="nav_link">FAQ</a>
-      <a href="#" class="nav_link">Inspiration</a>
+      <a href="#create" class="nav_link">Get scode</a>
+      <a href="#best-practices" class="nav_link">Best Practices</a>
+      <a href="#faq" class="nav_link">FAQ</a>
+      <a href="#inspiration" class="nav_link">Inspiration</a>
     </nav>
 
   </div>
@@ -55,6 +56,64 @@
         <img src="./assets/img/iphone.png" alt="" class="iphone">
       </div>
     </div>
+  </div>
+</section>
+
+<section id="create" class="pop-up">
+  <div class="pop-up-header">
+    <div class="container">
+      <h4 class="text-orange">Create Scode</h4>
+    </div>
+  </div>
+  <div class="pop-up-main">
+    <div class="container">
+      <div class="h3">Lorem, ipsum dolor.</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="scode-photo">
+            <canvas id="canvas" width="500" height="500"></canvas>
+          </div>
+          <button id="download-btn">Download</button>
+        </div>
+        <div class="col-md-3">
+          <div id="scode-params">
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-bg">Youtube link</label>
+              </div>
+              <input type="text" id="youtube-link" class="form-control">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-bg">Scode background</label>
+              </div>
+              <input type="color" id="scode-bg" value="#ffffff">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-lines-color">Scode lines color</label>
+              </div>
+              <input type="color" id="scode-lines-color">
+            </div>
+            <div class="form-group">
+              <label for="#scode-size">Scode size</label>
+              <input type="text" id="scode-size" value="640px" class="form-control">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-format">Scode format</label>
+              </div>
+              <select id="scode-format" class="form-control">
+                <option value="svg">SVG</option>
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </section>
 
@@ -114,6 +173,19 @@
     </div>
   </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script src="./script/scode-styling.js"></script>
+
+<!-- canvas -->
+<script type="text/javascript" src="script/mathUtils.js"></script>
+<script type="text/javascript" src="script/utils.js"></script>
+<script type="text/javascript" src="script/encode.js"></script>
+<script type="text/javascript" src="script/visualize.js"></script>
+<script type="text/javascript" src="script/script.js"></script>
+
+<!-- styling -->
+<script src="./script/index.js"></script>
 
 </body>
 </html>

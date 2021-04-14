@@ -30,7 +30,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .header {
   width: 100%;
-  padding-top: 16px;
+  padding: 10px 0px;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
