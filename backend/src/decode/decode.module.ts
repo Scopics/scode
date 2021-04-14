@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppModule } from '../app.module';
 import { CrcModule } from '../crc/crc.module';
-import { DecodeController } from './decode.controller';
 
-@Module({
-  controllers: [DecodeController]
-})
+@Module({})
 export class DecodeModule {
 
     static stabilize(rays: number[]): number[] {
