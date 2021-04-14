@@ -4,7 +4,7 @@ import { DecodeModule } from './decode.module';
 @Controller('decode')
 export class DecodeController {
     @Post()
-    decodeQuery(@Body() body): string{
+    decodeQuery(@Body() body): { link: string } {
         let link: string = '';
         try {
             link = `https://www.youtube.com/watch?v=${DecodeModule.getLink(body.rays)}`;
@@ -12,6 +12,6 @@ export class DecodeController {
         catch(err) {
             return err.message;
         }
-        return link;
+        return { link };
     }
 }
