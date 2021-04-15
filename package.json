@@ -27,6 +27,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6"
   },
+  "homepage": "https://github.com/Scopics/scode#readme",
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
