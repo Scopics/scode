@@ -2,45 +2,48 @@ import { Module } from '@nestjs/common';
 
 @Module({})
 export class CrcModule {
-    width: number;
-    castMask: number;
-    polynom: number;
-    initialVal: number;
-    finalXorVal: number;
-    table: number[];
+  width: number;
+  castMask: number;
+  polynom: number;
+  initialVal: number;
+  finalXorVal: number;
+  table: number[];
 
-    constructor(width: number, ...params) {
-
+  constructor(width: number, ...params) {
     // width: [castMask, polynom, initialVal, finalXorVal]
     const crcParamsByWidth = {
-      '8': [0xFF, 0x07, 0x00, 0x00],
-      '16': [0xFFFF, 0x8005, 0x0000, 0x0000],
-      '32': [0xFFFFFFFF, 0x04C11DB7, 0xFFFFFFFF, 0xFFFFFFFF]
+      '8': [0xff, 0x07, 0x00, 0x00],
+      '16': [0xffff, 0x8005, 0x0000, 0x0000],
+      '32': [0xffffffff, 0x04c11db7, 0xffffffff, 0xffffffff],
     };
 
     this.width = width;
     const paramsByWidth = crcParamsByWidth[width];
     if (paramsByWidth) {
-      [this.castMask, this.polynom, this.initialVal, this.finalXorVal] = paramsByWidth;
+      [
+        this.castMask,
+        this.polynom,
+        this.initialVal,
+        this.finalXorVal,
+      ] = paramsByWidth;
     } else {
       throw 'Invalid CRC width';
     }
 
     if (arguments.length === 4) {
-      [this.polynom,
-        this.initialVal,
-        this.finalXorVal] = params;
+      [this.polynom, this.initialVal, this.finalXorVal] = params;
     } else if (arguments.length !== 1) {
       throw 'Invalid arguments';
     }
 
-    if (!Number.isInteger(this.polynom) ||
+    if (
+      !Number.isInteger(this.polynom) ||
       !Number.isInteger(this.initialVal) ||
-      !Number.isInteger(this.finalXorVal))
+      !Number.isInteger(this.finalXorVal)
+    )
       throw 'Invalid arguments';
 
     this.table = this.createCrcTable(width);
-
   }
 
   createCrcTable(width: number) {
@@ -48,7 +51,7 @@ export class CrcModule {
     const table = new Array(256);
 
     for (let i = 0; i < 256; i++) {
-      let byte = (i << (width - 8));
+      let byte = i << (width - 8);
       for (let bit = 0; bit < 8; bit++) {
         if (byte & msbMask) {
           byte <<= 1;
@@ -57,22 +60,21 @@ export class CrcModule {
           byte <<= 1;
         }
       }
-      table[i] = (byte & this.castMask);
+      table[i] = byte & this.castMask;
     }
     return table;
   }
 
-
   calcCrc(bytes) {
     if (!Array.isArray(bytes) || bytes.length === 0)
-      throw 'It\'s not an array or empty array';
+      throw "It's not an array or empty array";
     let result = this.initialVal;
     for (const b of bytes) {
       const byte = parseInt(b, 16);
-      result ^= (byte << (this.width - 8));
-      const pos = (result >> (this.width - 8));
+      result ^= byte << (this.width - 8);
+      const pos = result >> (this.width - 8);
       result = ((result << 8) ^ this.table[pos]) & this.castMask;
     }
-    return (result ^ this.finalXorVal);
+    return result ^ this.finalXorVal;
   }
 }

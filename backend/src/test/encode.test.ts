@@ -28,7 +28,8 @@ describe('Testing getRays', () => {
     });
 
     test('Passes when pass link from playlist', () => {
-        const link = 'https://www.youtube.com/watch?v=5rnawnfK2sQ&list=PLbhsQE_RPwBOeD9GsvMUgOcJ-eI2FRfMq&index=12';
+        const link = 
+            'https://www.youtube.com/watch?v=5rnawnfK2sQ&list=PLbhsQE_RPwBOeD9GsvMUgOcJ-eI2FRfMq&index=12';
         const expectedResult = [
             15,3,5,7,2,6,14,6,
             15,1,7,7,6,14,6,6,
@@ -62,9 +63,7 @@ describe('Testing getRays', () => {
         const result = getRays(link);
         expect(result).toEqual(expectedResult);
     });
-
 });
-
 
 describe('Testing hexGenerator', () => {
     test('Passes when pass default options', () => {
@@ -97,6 +96,4 @@ describe('Testing hexGenerator', () => {
             hexGenerator(link, options);
         }).toThrowError('Invalid linkSeparator');
     });
-
 });
-

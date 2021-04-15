@@ -53,13 +53,12 @@ describe('Testing codeItemASCII', () => {
     }).toThrowError('Argument is not a char');
   });
 });
-  
 
 describe('Testing codeASCII', () => {
   test('Passes when pass valid parameters', () => {
     const text = '1<T';
     const result = codeASCII(text);
-    
+
     const expectedResult = ['31', '3c', '54'];
     expect(result).toEqual(expectedResult);
   });
@@ -67,7 +66,7 @@ describe('Testing codeASCII', () => {
   test('Passes when pass emty string', () => {
     const text = '';
     const result = codeASCII(text);
-    
+
     const expectedResult = [];
     expect(result).toEqual(expectedResult);
   });
@@ -75,7 +74,7 @@ describe('Testing codeASCII', () => {
   // test('Passes when pass number', () => {
   //   const text = 9101;
   //   const result = codeASCII(text);
-    
+
   //   const expectedResult = ['39', '31', '30', '31'];
   //   expect(result).toEqual(expectedResult);
   // });
@@ -83,7 +82,7 @@ describe('Testing codeASCII', () => {
   // test('Passes when pass array of strings', () => {
   //   const text = ['1', '<', 'T'];
   //   const result = codeASCII(text);
-    
+
   //   const expectedResult = ['31', '3c', '54'];
   //   expect(result).toEqual(expectedResult);
   // });
@@ -91,7 +90,7 @@ describe('Testing codeASCII', () => {
   // test('Passes when pass array of nubmers', () => {
   //   const text = [ 9, 1, 0, 1];
   //   const result = codeASCII(text);
-    
+
   //   const expectedResult = ['39', '31', '30', '31'];
   //   expect(result).toEqual(expectedResult);
   // });
