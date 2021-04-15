@@ -23,7 +23,11 @@ export class EncodeModule {
 
     static hexGenerator (link: string, options = { linkSeparator: '=' }): string[] {
         const indx = link.indexOf(options.linkSeparator);
-        const videoCode = link.slice(indx + 1);
+        if (options.linkSeparator.length === 0 || indx === -1) 
+            throw new Error('Invalid linkSeparator');
+        const videoCode = link.slice(indx + 1).slice(0,11);
+        if (videoCode.length !== 11) 
+            throw new Error('Invalid link');
         const res = [];
         for (let i = 0; i < videoCode.length; i++) {
             res[i] = videoCode.charCodeAt(i).toString(16);
