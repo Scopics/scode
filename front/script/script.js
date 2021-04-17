@@ -29,12 +29,9 @@ const onInput = () => {
     return;
   }
 
-  const test_data = hexGenerator(options, link);
-  const crc16 = getCrc(16);
-  const CRC = crc16(test_data);
-  const result = test_data.join('') + CRC.toString(16);
-
-  drawScode(Array.from(result), bg, color);
+  getRays(link, (data) => {
+    drawScode(data.rays, bg, color);
+  })
 }
 
 setCanvasSize();

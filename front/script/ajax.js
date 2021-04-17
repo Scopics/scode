@@ -1,4 +1,4 @@
-function getRays(link) {
+function getRays(link, cb) {
   const dataGetRays = { link };
   
   const requestRays = $.ajax({
@@ -8,12 +8,10 @@ function getRays(link) {
     contentType: 'application/json; charset=utf-8'
   })
   
-  requestRays.done(function(data) {
-    console.log(data);
-  })
+  requestRays.done(cb);
 }
 
-function getLink(rays) {
+function getLink(rays, cb) {
   const dataGetLink = { rays };
   
   const requestLink = $.ajax({
@@ -23,7 +21,7 @@ function getLink(rays) {
     contentType: 'application/json; charset=utf-8'
   })
   
-  requestLink.done(function(data) {
-    console.log(data);
-  })
+  requestLink.done(cb)
 }
+
+getRays('https://www.youtube.com/watch?v=YSsNFP6TVHY');
