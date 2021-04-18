@@ -1,0 +1,36 @@
+$main-page-color: #2d2d2d;
+
+section#read {
+  background: #fff;
+  box-shadow: 0px 0px 100px #000;
+  transform: translateX(0);
+
+  video {
+    width: 100%;
+  }
+
+  #video-data {
+    padding-right: 15px;
+    button#makePhoto {
+      width: 100%;
+      background: $main-page-color;
+      border-radius: 50px;
+      padding: 10px 15px;
+      color: white;
+      text-transform: uppercase;
+      border: 2px solid $main-page-color;
+      transition-duration: .5s;
+      font-weight: 800;
+      letter-spacing: .15rem;
+    }
+  
+    button#makePhoto:hover {
+      background: #fff;
+      color: $main-page-color;
+    }
+
+    #response-video {
+      margin-top: 15px;
+    }
+  }
+}
