@@ -7,7 +7,7 @@ export class DecodeController {
   decodeQuery(@Body() body): { link: string } {
     let link: string = '';
     try {
-      link = `https://www.youtube.com/watch?v=${DecodeModule.getLink(
+      link = `https://www.youtube.com/embed/${DecodeModule.getLink(
         body.rays,
       )}`;
     } catch (err) {
