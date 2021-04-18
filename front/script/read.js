@@ -32,6 +32,14 @@ function stopVideo() {
   video.srcObject = defaultVideo;
 }
 
+function setCameraVideoSize() {
+  const screenProportion = 15 / 11;
+  const width = $('#video-block').width();
+  const height = width / screenProportion;
+  $('#video').attr('width', width);
+  $('#video').attr('height', height);
+}
+
 function setResponseVideoSize() {
   const screenProportion = 16 / 9;
   const width = $('#video-data').width();
@@ -56,4 +64,5 @@ $('section#read button#makePhoto').click(function() {
   })
 })
 
+setCameraVideoSize();
 setResponseVideoSize();
