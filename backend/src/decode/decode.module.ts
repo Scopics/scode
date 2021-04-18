@@ -52,7 +52,7 @@ export class DecodeModule {
     return raysCopy;
   }
 
-  static getChunksOfString = (str, size) => {
+  static getChunksOfString = (str: string, size: number): string[] => {
     if (!(size > 0)) throw new Error('Invalid size value');
     if (str.length === 0) throw new Error('Wrong str length');
     const numChunks = Math.ceil(str.length / size);
@@ -64,7 +64,7 @@ export class DecodeModule {
     return chunks;
   };
 
-  static decodeHexInQueryParam = (scode, urlCodeLen) => {
+  static decodeHexInQueryParam = (scode: string, urlCodeLen: number): string => {
     const scodeLen = scode.length;
 
     if (scodeLen < urlCodeLen || !scodeLen) {
@@ -94,7 +94,7 @@ export class DecodeModule {
     return resQueryParam;
   };
 
-  static decodeDataFromImage = (lengthOfLines, urlCodeLen) => {
+  static decodeDataFromImage = (lengthOfLines: number[], urlCodeLen: number): string => {
     const END_CODE = 'fa';
     const len = lengthOfLines.length;
     if (!len || !Array.isArray(lengthOfLines)) {
@@ -115,7 +115,7 @@ export class DecodeModule {
     return res;
   };
 
-  static getLink(rays, linkLen = 11) {
+  static getLink(rays: number[], linkLen:number = 11): string {
     if (!(rays.length > 0) || !Array.isArray(rays))
       throw new Error('Array is empty or it is not an array');
     if (!(linkLen > 0)) throw new Error('Invalid link length');
