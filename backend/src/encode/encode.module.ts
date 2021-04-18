@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { CrcModule } from '../crc/crc.module';
 
+interface hexGeneratorOptions {
+  linkSeparator: string
+}
+
 @Module({})
 export class EncodeModule {
   static getRays(link: string): number[] {
@@ -22,7 +26,7 @@ export class EncodeModule {
 
   static hexGenerator(
     link: string,
-    options = { linkSeparator: '=' },
+    options: hexGeneratorOptions = { linkSeparator: '=' }
   ): string[] {
     const indx = link.indexOf(options.linkSeparator);
     if (options.linkSeparator.length === 0 || indx === -1)
