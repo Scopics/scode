@@ -64,7 +64,10 @@ export class DecodeModule {
     return chunks;
   };
 
-  static decodeHexInQueryParam = (scode: string, urlCodeLen: number): string => {
+  static decodeHexInQueryParam = (
+    scode: string,
+    urlCodeLen: number,
+  ): string => {
     const scodeLen = scode.length;
 
     if (scodeLen < urlCodeLen || !scodeLen) {
@@ -94,7 +97,10 @@ export class DecodeModule {
     return resQueryParam;
   };
 
-  static decodeDataFromImage = (lengthOfLines: number[], urlCodeLen: number): string => {
+  static decodeDataFromImage = (
+    lengthOfLines: number[],
+    urlCodeLen: number,
+  ): string => {
     const END_CODE = 'fa';
     const len = lengthOfLines.length;
     if (!len || !Array.isArray(lengthOfLines)) {
@@ -115,7 +121,7 @@ export class DecodeModule {
     return res;
   };
 
-  static getLink(rays: number[], linkLen:number = 11): string {
+  static getLink(rays: number[], linkLen: number = 11): string {
     if (!(rays.length > 0) || !Array.isArray(rays))
       throw new Error('Array is empty or it is not an array');
     if (!(linkLen > 0)) throw new Error('Invalid link length');
