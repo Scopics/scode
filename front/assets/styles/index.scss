@@ -1,0 +1,16 @@
+@import './containers.scss';
+@import './grid.scss';
+@import './fields.scss';
+@import './pop-up.scss';
+@import './create.scss';
+@import './read.scss';
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.text-orange {
+  color: #ff3d00;
+}

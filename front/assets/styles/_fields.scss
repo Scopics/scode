@@ -1,0 +1,42 @@
+$spacings: (
+  0: 0,
+  1: 0.25,
+  2: 0.5,
+  3: 1,
+  4: 1.5,
+  5: 3,
+) !default;
+
+@each $index, $spacing in $spacings {
+  .mb-#{$index}, .my-#{$index}, .m-#{$index} {
+    margin-bottom: #{$spacing}rem;
+  }
+
+  .mt-#{$index}, .my-#{$index}, .m-#{$index} {
+    margin-top: #{$spacing}rem;
+  }
+
+  .ml-#{$index}, .mx-#{$index}, .m-#{$index} {
+    margin-left: #{$spacing}rem;
+  }
+
+  .mr-#{$index}, .mx-#{$index}, .m-#{$index} {
+    margin-right: #{$spacing}rem;
+  }
+
+  .pb-#{$index}, .py-#{$index}, .p-#{$index} {
+    padding-bottom: #{$spacing}rem;
+  }
+
+  .pt-#{$index}, .py-#{$index}, .p-#{$index} {
+    padding-top: #{$spacing}rem;
+  }
+
+  .pl-#{$index}, .px-#{$index}, .p-#{$index} {
+    padding-left: #{$spacing}rem;
+  }
+
+  .pr-#{$index}, .px-#{$index}, .p-#{$index} {
+    padding-right: #{$spacing}rem;
+  }
+}

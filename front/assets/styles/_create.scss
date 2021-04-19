@@ -1,0 +1,70 @@
+$main-page-color: #2d2d2d;
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+section#create.pop-up {
+  transform: translateX(110%);
+  transition-duration: 1.5s;
+}
+
+section#create {
+  position: absolute;
+  left: 30%;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  // bottom: 0;
+  z-index: 10;
+  background: #fff;
+  box-shadow: 0px 0px 100px #000;
+  
+  #scode-photo, #code-params {
+    padding: 0 20px;
+  }
+
+  button#download-btn {
+    width: 100%;
+    border-radius: 100px;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 800;
+    background: $main-page-color;
+    color: #fff;
+    border: 3px solid $main-page-color;
+    transition-duration: .3s;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  button#download-btn:hover {
+    background: #fff;
+    color: $main-page-color;
+  }
+
+  .form-group {
+    margin-top: 1rem;
+    
+    label {
+      width: 100%;
+      margin-right: auto;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    input[type = color] {
+      width: 50px;
+    }
+    
+    .form-control {
+      padding: 7px 10px;
+      font-size: .9rem;
+    }
+  }
+}

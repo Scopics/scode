@@ -1,0 +1,992 @@
+.container {
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    width: 540px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-grid {
+  display: flex;
+}
+
+.d-none {
+  display: flex;
+}
+
+.d-block {
+  display: block;
+}
+
+@media screen and (min-width: 0px) {
+  .col-xs-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 0px) {
+  .col-xs-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 576px) {
+  .col-sm-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .col-lg-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .col-xl-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-0 {
+    flex: 0 0 0%;
+    max-width: 0%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-1 {
+    flex: 0 0 8.3333333%;
+    max-width: 8.3333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-2 {
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-5 {
+    flex: 0 0 41.666666%;
+    max-width: 41.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-8 {
+    flex: 0 0 66.666666%;
+    max-width: 66.666666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-10 {
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-11 {
+    flex: 0 0 91.66666%;
+    max-width: 91.66666%;
+    position: relative;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .col-xxl-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+  }
+}
+.mb-0, .my-0, .m-0 {
+  margin-bottom: 0rem;
+}
+
+.mt-0, .my-0, .m-0 {
+  margin-top: 0rem;
+}
+
+.ml-0, .mx-0, .m-0 {
+  margin-left: 0rem;
+}
+
+.mr-0, .mx-0, .m-0 {
+  margin-right: 0rem;
+}
+
+.pb-0, .py-0, .p-0 {
+  padding-bottom: 0rem;
+}
+
+.pt-0, .py-0, .p-0 {
+  padding-top: 0rem;
+}
+
+.pl-0, .px-0, .p-0 {
+  padding-left: 0rem;
+}
+
+.pr-0, .px-0, .p-0 {
+  padding-right: 0rem;
+}
+
+.mb-1, .my-1, .m-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mt-1, .my-1, .m-1 {
+  margin-top: 0.25rem;
+}
+
+.ml-1, .mx-1, .m-1 {
+  margin-left: 0.25rem;
+}
+
+.mr-1, .mx-1, .m-1 {
+  margin-right: 0.25rem;
+}
+
+.pb-1, .py-1, .p-1 {
+  padding-bottom: 0.25rem;
+}
+
+.pt-1, .py-1, .p-1 {
+  padding-top: 0.25rem;
+}
+
+.pl-1, .px-1, .p-1 {
+  padding-left: 0.25rem;
+}
+
+.pr-1, .px-1, .p-1 {
+  padding-right: 0.25rem;
+}
+
+.mb-2, .my-2, .m-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mt-2, .my-2, .m-2 {
+  margin-top: 0.5rem;
+}
+
+.ml-2, .mx-2, .m-2 {
+  margin-left: 0.5rem;
+}
+
+.mr-2, .mx-2, .m-2 {
+  margin-right: 0.5rem;
+}
+
+.pb-2, .py-2, .p-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pt-2, .py-2, .p-2 {
+  padding-top: 0.5rem;
+}
+
+.pl-2, .px-2, .p-2 {
+  padding-left: 0.5rem;
+}
+
+.pr-2, .px-2, .p-2 {
+  padding-right: 0.5rem;
+}
+
+.mb-3, .my-3, .m-3 {
+  margin-bottom: 1rem;
+}
+
+.mt-3, .my-3, .m-3 {
+  margin-top: 1rem;
+}
+
+.ml-3, .mx-3, .m-3 {
+  margin-left: 1rem;
+}
+
+.mr-3, .mx-3, .m-3 {
+  margin-right: 1rem;
+}
+
+.pb-3, .py-3, .p-3 {
+  padding-bottom: 1rem;
+}
+
+.pt-3, .py-3, .p-3 {
+  padding-top: 1rem;
+}
+
+.pl-3, .px-3, .p-3 {
+  padding-left: 1rem;
+}
+
+.pr-3, .px-3, .p-3 {
+  padding-right: 1rem;
+}
+
+.mb-4, .my-4, .m-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-4, .my-4, .m-4 {
+  margin-top: 1.5rem;
+}
+
+.ml-4, .mx-4, .m-4 {
+  margin-left: 1.5rem;
+}
+
+.mr-4, .mx-4, .m-4 {
+  margin-right: 1.5rem;
+}
+
+.pb-4, .py-4, .p-4 {
+  padding-bottom: 1.5rem;
+}
+
+.pt-4, .py-4, .p-4 {
+  padding-top: 1.5rem;
+}
+
+.pl-4, .px-4, .p-4 {
+  padding-left: 1.5rem;
+}
+
+.pr-4, .px-4, .p-4 {
+  padding-right: 1.5rem;
+}
+
+.mb-5, .my-5, .m-5 {
+  margin-bottom: 3rem;
+}
+
+.mt-5, .my-5, .m-5 {
+  margin-top: 3rem;
+}
+
+.ml-5, .mx-5, .m-5 {
+  margin-left: 3rem;
+}
+
+.mr-5, .mx-5, .m-5 {
+  margin-right: 3rem;
+}
+
+.pb-5, .py-5, .p-5 {
+  padding-bottom: 3rem;
+}
+
+.pt-5, .py-5, .p-5 {
+  padding-top: 3rem;
+}
+
+.pl-5, .px-5, .p-5 {
+  padding-left: 3rem;
+}
+
+.pr-5, .px-5, .p-5 {
+  padding-right: 3rem;
+}
+
+body {
+  position: relative;
+}
+
+.pop-up {
+  position: fixed;
+  left: 30%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  transform: translateX(110%);
+  transition-duration: 1.5s;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.pop-up .pop-up-header {
+  border-bottom: 1px solid #d8d8d8;
+  display: grid;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+section#create.pop-up {
+  transform: translateX(110%);
+  transition-duration: 1.5s;
+}
+
+section#create {
+  position: absolute;
+  left: 30%;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 10;
+  background: #fff;
+  box-shadow: 0px 0px 100px #000;
+}
+section#create #scode-photo, section#create #code-params {
+  padding: 0 20px;
+}
+section#create button#download-btn {
+  width: 100%;
+  border-radius: 100px;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 800;
+  background: #2d2d2d;
+  color: #fff;
+  border: 3px solid #2d2d2d;
+  transition-duration: 0.3s;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.5);
+}
+section#create button#download-btn:hover {
+  background: #fff;
+  color: #2d2d2d;
+}
+section#create .form-group {
+  margin-top: 1rem;
+}
+section#create .form-group label {
+  width: 100%;
+  margin-right: auto;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+section#create .form-group input {
+  width: 100%;
+}
+section#create .form-group input[type=color] {
+  width: 50px;
+}
+section#create .form-group .form-control {
+  padding: 7px 10px;
+  font-size: 0.9rem;
+}
+
+section#read {
+  background: #fff;
+  box-shadow: 0px 0px 100px #000;
+  transform: translateX(0);
+}
+section#read #video-read {
+  margin-top: 20px;
+}
+section#read video {
+  width: 100%;
+}
+section#read #video-data {
+  padding-right: 15px;
+  padding-left: 10px;
+}
+section#read #video-data button#makePhoto {
+  width: 100%;
+  background: #2d2d2d;
+  border-radius: 50px;
+  padding: 10px 15px;
+  color: white;
+  text-transform: uppercase;
+  border: 2px solid #2d2d2d;
+  transition-duration: 0.5s;
+  font-weight: 800;
+  letter-spacing: 0.15rem;
+}
+section#read #video-data button#makePhoto:hover {
+  background: #fff;
+  color: #2d2d2d;
+}
+section#read #video-data #response-video {
+  margin-top: 15px;
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+.text-orange {
+  color: #ff3d00;
+}/*# sourceMappingURL=index.css.map */

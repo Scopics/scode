@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" 
+  href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
+  integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" 
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/styles/homepage.css">
+  <link rel="stylesheet" href="./assets/styles/index.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header_inner">
+    <div class="header_logo">Scode</div>
+    
+    <nav class="nav">
+      <a href="#create" class="nav_link">Get scode</a>
+      <a href="#read" class="nav_link">Read scode</a>
+      <a href="#best-practices" class="nav_link">Best Practices</a>
+      <a href="#faq" class="nav_link">FAQ</a>
+    </nav>
+
+  </div>
+</header>
+  
+<section class="section">
+  <div class="container-fv">
+    <div class="homepage">
+      <div class="homepage-item">
+        <div class="homepage_header">
+          <h1 class="homepage_slogan">Share.</h1>
+          <h1 class="homepage_slogan">Connect.</h1>
+          <h1 class="homepage_slogan --orange">Enjoy.</h1>
+        </div>
+        <div class="homepage_footer">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Autem architecto assumenda, dolor culpa labore quisquam 
+            quo magnam numquam repellat, reprehenderit qui. Fuga 
+            quisquam voluptate mollitia facilis provident minima 
+            dolorem!
+          </p>
+          <h2 class="--orange">Lorem ipsum dolor sit amet consectetur.</h2>
+          <input type="text" class="link_input" name="uri" value="https://www.youtube.com/watch?v=GcQAe0Gv0ic">
+          <button class="button_send_uri">Get scode</button>
+        </div>
+      </div>
+      <div class="homepage-item devices">
+        <img src="./assets/img/ipad.png" alt="" class="ipad">
+        <img src="./assets/img/iphone.png" alt="" class="iphone">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="create" class="pop-up">
+  <div class="pop-up-header">
+    <div class="container">
+      <h4 class="text-orange">Create Scode</h4>
+    </div>
+  </div>
+  <div class="pop-up-main">
+    <div class="container">
+      <div class="h3">Lorem, ipsum dolor.</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="scode-photo">
+            <canvas id="canvas" width="500" height="500"></canvas>
+          </div>
+          <button id="download-btn">Download</button>
+        </div>
+        <div class="col-md-3">
+          <div id="scode-params">
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-bg">Youtube link</label>
+              </div>
+              <input type="text" id="youtube-link" class="form-control">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-bg">Scode background</label>
+              </div>
+              <input type="color" id="scode-bg" value="#ffffff">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-lines-color">Scode lines color</label>
+              </div>
+              <input type="color" id="scode-lines-color">
+            </div>
+            <div class="form-group">
+              <label for="#scode-size">Scode size</label>
+              <input type="text" id="scode-size" value="640px" class="form-control">
+            </div>
+            <div class="form-group">
+              <div class="form-label-block">
+                <label for="#scode-format">Scode format</label>
+              </div>
+              <select id="scode-format" class="form-control">
+                <option value="svg">SVG</option>
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="read" class="pop-up">
+  <div class="pop-up-header">
+    <div class="container">
+      <h4 class="text-orange">Read Scode</h4>
+    </div>
+  </div>
+  <div class="pop-up-main">
+    <div class="container">
+      <div class="h3">Lorem, ipsum dolor.</div>
+      <div class="row" id="video-read">
+        <div class="col-md-6">
+          <div id="video-block">
+            <video id="video" width="1280" height="200" autoplay>
+              <source src="./assets/img/video-bg.mp4" type="video/mp4" id="defaultVideo">
+            </video>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="video-data">
+            <button id="makePhoto">make Photo</button>
+            <iframe id="response-video" width="420" height="315"
+              src="https://www.youtube.com/embed/tgbNymZ7vqY"
+              frameborder="0" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+
+  <div class="container-fv">
+    <div class="footer_inner">
+      <div class="footer_coll footer_coll--povered-by">
+        <h4 class="footer_text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, dolores.</h5> 
+        <h3 class="footer_text">© Scopics, MIT Licensed</h4>
+      </div>
+      <div class="footer_coll footer_coll--contact-us">
+        <h3>Contact us:</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/Scopics" class="footer_link">
+              <i class="fab fa-github"></i> GitHub/Scopics
+            </a>  
+          </li>
+          <li>
+            <a href="#" class="footer_link">
+              <i class="fas fa-envelope"></i> scopics-org@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#" class="footer_link">
+              <i class="fas fa-paper-plane"></i> @scopiscQueshion_bot
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer_coll footer_coll-links">
+        <h3>Useful links:</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/Scopics/scode/blob/main/docs/SPECIFICATION.md" class="footer_link">
+              <i class="fas fa-eraser"></i> Specification
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Scopics/scode" class="footer_link">
+              <i class="fab fa-node"></i> Source code
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer_coll footer_coll-sponsor">
+        <h3>Sponsor:</h3>
+        <ul>
+          <li>
+            <a href="#" class="footer_link">
+              <i class="fab fa-patreon"></i> Patreon/Scopics
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="./script/scode-styling.js"></script>
+
+<!-- ajax -->
+<script src="./script/ajax.js"></script>
+
+<!-- canvas -->
+<script type="text/javascript" src="script/mathUtils.js"></script>
+<script type="text/javascript" src="script/utils.js"></script>
+<script type="text/javascript" src="script/visualize.js"></script>
+<script type="text/javascript" src="script/script.js"></script>
+
+<!-- styling -->
+<script src="./script/index.js"></script>
+
+<!-- navbar -->
+<script src="./script/navbar.js"></script>
+
+<!-- read scode -->
+<script src="./script/read.js"></script>
+
+</body>
+</html>
