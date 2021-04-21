@@ -1,4 +1,5 @@
 const video = document.getElementById('video');
+const videoOverlays = document.getElementById('video_overlays');
 const defaultVideo = document.getElementById('#defaultVideo');
 let videoStream;
 let videoStarted = false;
@@ -48,11 +49,14 @@ function setResponseVideoSize() {
   $('#response-video').attr('height', height);
 }
 
-video.addEventListener('click', () => {
+const videoClickLissener = () => {
   console.log(videoStarted);
   videoStarted ? stopVideo() : startVideo();
   videoStarted = !videoStarted;
-})
+};
+
+video.addEventListener('click', videoClickLissener);
+videoOverlays.addEventListener('click', videoClickLissener);
 
 // code for sending to server
 $('section#read button#makePhoto').click(function() {
