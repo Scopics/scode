@@ -13,6 +13,27 @@ section#read {
     width: 100%;
   }
 
+  #video-block {
+    margin: 0 auto;
+    position: relative;
+
+    #video_overlays {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    
+    #aim_img {
+        position: absolute;
+        margin: 0 auto;
+        left: 50%;
+        top: 50%;
+
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
   #video-data {
     padding-right: 15px;
     padding-left: 10px;

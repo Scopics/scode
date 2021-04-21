@@ -891,6 +891,14 @@ body {
   overflow-x: hidden;
 }
 
+h4.section_header {
+  font-family: "Dancing Script", cursive;
+  font-size: 48px;
+  font-style: italic;
+  font-weight: 700;
+  color: #ff3d00;
+}
+
 section#create.pop-up {
   transform: translateX(110%);
   transition-duration: 1.5s;
@@ -957,6 +965,23 @@ section#read #video-read {
 section#read video {
   width: 100%;
 }
+section#read #video-block {
+  margin: 0 auto;
+  position: relative;
+}
+section#read #video-block #video_overlays {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+section#read #video-block #video_overlays #aim_img {
+  position: absolute;
+  margin: 0 auto;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 section#read #video-data {
   padding-right: 15px;
   padding-left: 10px;
@@ -989,4 +1014,6 @@ section#read #video-data #response-video {
 
 .text-orange {
   color: #ff3d00;
-}/*# sourceMappingURL=index.css.map */
+}
+
+/*# sourceMappingURL=index.css.map */
