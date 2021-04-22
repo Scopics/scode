@@ -1,6 +1,7 @@
 const video = document.getElementById('video');
 const videoOverlays = document.getElementById('video_overlays');
 const defaultVideo = document.getElementById('#defaultVideo');
+const scope = document.getElementById('aim_img');
 let videoStream;
 let videoStarted = false;
 // Elements for taking the snapshot
@@ -53,6 +54,7 @@ const videoClickLissener = () => {
   console.log(videoStarted);
   videoStarted ? stopVideo() : startVideo();
   videoStarted = !videoStarted;
+  scope.classList.toggle('active');
 };
 
 video.addEventListener('click', videoClickLissener);
