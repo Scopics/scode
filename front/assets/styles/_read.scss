@@ -22,14 +22,19 @@ section#read {
     height: 100%;
     z-index: 1000;
     
-    #aim_img {
+      #aim_img {
         position: absolute;
         margin: 0 auto;
         left: 50%;
         top: 50%;
+        opacity: 0;
 
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
+      }
+
+      #aim_img.active {
+        opacity: 1;
       }
     }
   }
