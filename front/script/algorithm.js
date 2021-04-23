@@ -79,7 +79,7 @@ function checkIfScode(img){
     console.log(percents[0], percents[1], percents[2]);
     
     for(let i = 0; i < 3; i++){
-        if(percents[i] >= correctPercentage[i].min && percents[i] <= correctPercentage[i].max){
+        if(percents[i] < correctPercentage[i].min || percents[i] > correctPercentage[i].max){
            return false; 
         }
     }
