@@ -28,7 +28,7 @@ function drawScode(code, bg = '#fff', color = '#000') {
   const maxItem = Math.max(...code);
   const scale = MAX_RADIUS / maxItem;
   if (quantity % QUARTERS !== 0) {
-    console.log('rays are not devided by 4');
+    console.log('rays are not divided by 4');
     return;
   }
   
