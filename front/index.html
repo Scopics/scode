@@ -18,7 +18,7 @@
 <header class="header">
   <div class="header_inner">
     <div class="header_logo">Scode</div>
-    
+
     <nav class="nav">
       <a href="#create" class="nav_link">Get scode</a>
       <a href="#read" class="nav_link">Read scode</a>
@@ -62,7 +62,14 @@
 <section id="create" class="pop-up">
   <div class="pop-up-header">
     <div class="container">
-      <h4 class="text-orange">Create Scode</h4>
+      <div class="flexable--jcc">
+          <h4 class="text-orange section_header">Create Scode</h4>
+          <div class="exit_btn">
+            <div class="inner">
+              <label>Leave</label>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
   <div class="pop-up-main">
@@ -119,7 +126,14 @@
 <section id="read" class="pop-up">
   <div class="pop-up-header">
     <div class="container">
-      <h4 class="text-orange">Read Scode</h4>
+      <div class="flexable--jcc">
+        <h4 class="text-orange section_header">Read Scode</h4>
+        <div class="exit_btn">
+          <div class="inner">
+            <label>Leave</label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="pop-up-main">
@@ -128,9 +142,14 @@
       <div class="row" id="video-read">
         <div class="col-md-6">
           <div id="video-block">
-            <video id="video" width="1280" height="200" autoplay>
-              <source src="./assets/img/video-bg.mp4" type="video/mp4" id="defaultVideo">
-            </video>
+            <div id="video_overlays">
+              <img src="./assets/img/scope.png" id="aim_img" alt="">
+            </div>
+            <div>
+              <video id="video" width="1280" height="200" autoplay>
+                <source src="./assets/img/video-bg.mp4" type="video/mp4" id="defaultVideo">
+              </video>
+            </div>
           </div>
         </div>
         <div class="col-md-6">

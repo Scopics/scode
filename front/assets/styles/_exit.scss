@@ -1,0 +1,59 @@
+$main-page-color: #2d2d2d;
+
+.exit_btn {
+  position: relative;
+  width: 70px;
+  cursor: pointer;
+
+  .inner {
+    width: inherit;
+    text-align: center;
+  }
+  
+  .inner label { 
+    font-weight: 700;
+    line-height: 6em;
+    text-transform: uppercase;
+    color: #ff3d00;
+    transition: all .3s ease-in;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .inner:before, .inner:after {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: inherit;
+    background: #ff3d00;
+    left: 0;
+    transition: all .3s ease-in;
+  }
+  
+  .inner:before {
+    top: 50%; 
+    transform: rotate(45deg);  
+  }
+  
+  .inner:after {  
+    bottom: 50%;
+    transform: rotate(-45deg);  
+  }
+}
+
+.exit_btn:hover label {
+  opacity: 1;
+}
+
+.exit_btn:hover .inner:before,
+.exit_btn:hover .inner:after {
+  transform: rotate(0);
+}
+
+.exit_btn:hover .inner:before {
+  top: 20%;
+}
+
+.exit_btn:hover .inner:after {
+  bottom: 20%;
+}

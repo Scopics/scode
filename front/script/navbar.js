@@ -8,3 +8,7 @@ $('header a').click(function(e) {
 $('body').on('click', ':not(header, header *, .pop-up, .pop-up *)', function(e) {
   $('.pop-up').css('transform', 'translateX(110%)');
 })
+
+$('.exit_btn').click(function(e){
+  $('.pop-up').css('transform', 'translateX(110%)');
+})

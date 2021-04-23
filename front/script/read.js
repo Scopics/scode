@@ -1,5 +1,7 @@
 const video = document.getElementById('video');
+const videoOverlays = document.getElementById('video_overlays');
 const defaultVideo = document.getElementById('#defaultVideo');
+const scope = document.getElementById('aim_img');
 let videoStream;
 let videoStarted = false;
 // Elements for taking the snapshot
@@ -48,11 +50,15 @@ function setResponseVideoSize() {
   $('#response-video').attr('height', height);
 }
 
-video.addEventListener('click', () => {
+const videoClickLissener = () => {
   console.log(videoStarted);
   videoStarted ? stopVideo() : startVideo();
   videoStarted = !videoStarted;
-})
+  scope.classList.toggle('active');
+};
+
+video.addEventListener('click', videoClickLissener);
+videoOverlays.addEventListener('click', videoClickLissener);
 
 // code for sending to server
 $('section#read button#makePhoto').click(function() {
