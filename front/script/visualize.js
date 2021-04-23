@@ -25,6 +25,7 @@ function drawScode(code, bg = '#fff', color = '#000') {
   fillScode();
 
   ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
 
   let quantity = code.length;
   const maxItem = Math.max(...code);

@@ -2,6 +2,7 @@ const CIRCLE_START = 0;
 const CIRCLE_END = 2 * Math.PI;
 const PIXEL_DATA_LENGTH = 4;
 
+const BLACKWHITE_THRESHOLD = 80;
 
 const cvs1 = document.getElementById('canvas1');
 const cvs2 = document.getElementById('canvas2');
@@ -45,7 +46,7 @@ function blackwhite(img) {
         const B = img.data[i + 2];
 
         brightness = parseInt((R + G + B) / 3);
-        white = 255 * (brightness >= 128 ? 1 : 0);
+        white = 255 * (brightness >= BLACKWHITE_THRESHOLD ? 1 : 0);
 
         img.data[i] = white;
         img.data[i + 1] = white;
@@ -100,6 +101,8 @@ img.addEventListener('load', function() {
 
     if(checkIfScode(img)){
         console.log('Image is scode!');
+    } else {
+        console.log('Image is not scode');        
     }
 
     ctx2.putImageData(img, 0, 0);
