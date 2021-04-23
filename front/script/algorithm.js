@@ -8,17 +8,15 @@ const cvs2 = document.getElementById('canvas2');
 const ctx1 = cvs1.getContext('2d');
 const ctx2 = cvs2.getContext('2d');
 
-let correctPercentage = {
-    inner: {min: 0, max: 0},
-    middle: {min: 5, max : 10},
-    outer: {min: 0, max: 0}
-}
+let correctPercentage = [
+    {min: 0, max: 0}, 
+    {min: 5, max : 10}, 
+    {min: 0, max: 0}
+];
 
 let imageMid = {x: 350, y: 350}
 
-const innerCircleRadius = 10;
-const middleCircleRadius = 100;
-const outerCircleRadius = 300;
+radiuses = [10, 100, 300];
 
 const circleWidth = 0.5;
 
@@ -34,7 +32,9 @@ img1.onload = () => {
 let img = new Image();
 img.src = './assets/img/scode_example2.png';
 
-const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(Math.pow((x - imageMid.x), 2) + Math.pow((y - imageMid.y), 2)) - radius) < circleWidth;
+const square = (x) => x * x;
+
+const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(square(x - imageMid.x)  + square(y - imageMid.y)) - radius) < circleWidth;
 
 function blackwhite(img) {
     const picLength = img.width * img.height;
@@ -45,7 +45,7 @@ function blackwhite(img) {
         const B = img.data[i + 2];
 
         brightness = parseInt((R + G + B) / 3);
-        white = 255 * (brightness >= 128);
+        white = 255 * (brightness >= 128 ? 1 : 0);
 
         img.data[i] = white;
         img.data[i + 1] = white;
@@ -54,52 +54,36 @@ function blackwhite(img) {
 }
 
 function checkIfScode(img){
-    let innerAmount = 0;
-    let innerBlacks = 0;
-
-    let middleAmount = 0;
-    let middleBlacks = 0;
-
-    let outerAmount = 0;
-    let outerBlacks = 0;
+    const amounts = [0, 0, 0];
+    const blackAmounts = [0, 0, 0];
 
     for(let y = 0; y < img.height; y++){
         for(let x = 0; x < img.width; x++){
             const i = (y * img.width + x) * 4;
             const R = img.data[i];
-            if(checkCircle(x, y, innerCircleRadius)){
-                innerAmount++;
-                if(R === 0){
-                    innerBlacks++;
-                }
-            }
-            if(checkCircle(x, y, middleCircleRadius)){
-                middleAmount++;
-                if(R === 0){
-                    middleBlacks++;
-                }
-            }
-            if(checkCircle(x, y, outerCircleRadius)){
-                outerAmount++;
-                if(R === 0){
-                    outerBlacks++;
+            for(let i = 0; i < 3; i++){
+                if(checkCircle(x, y, radiuses[i])){
+                    amounts[i]++;
+                    if(R === 0){
+                        blackAmounts[i]++;
+                    }
                 }
             }
         }
     }
 
-    const innerPercents = innerBlacks / innerAmount * 100;
-    const middlePercents = middleBlacks / middleAmount * 100;
-    const outerPercents = outerBlacks / outerAmount * 100;
+    let percents = [0, 0, 0];
+    percents = percents.map((val, i) => blackAmounts[i] / amounts[i] * 100);
 
     console.log('Circles black / white pixels percentage:');
-    console.log(innerPercents, middlePercents, outerPercents);
+    console.log(percents[0], percents[1], percents[2]);
     
-    const innerCorrect = innerPercents >= correctPercentage.inner.min && innerPercents <= correctPercentage.inner.max;
-    const middleCorrect = middlePercents >= correctPercentage.middle.min && middlePercents <= correctPercentage.middle.max;
-    const outerCorrect = outerPercents >= correctPercentage.outer.min && outerPercents <= correctPercentage.outer.max;
-
-    return innerCorrect && middleCorrect && outerCorrect
+    for(let i = 0; i < 3; i++){
+        if(percents[i] >= correctPercentage[i].min && percents[i] <= correctPercentage[i].max){
+           return false; 
+        }
+    }
+    return true;
 }
 
 img.addEventListener('load', function() {
@@ -122,15 +106,9 @@ img.addEventListener('load', function() {
 
     ctx2.strokeStyle = 'red';
 
-    ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, middleCircleRadius, CIRCLE_START, CIRCLE_END);
-    ctx2.stroke();
-
-    ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, innerCircleRadius, CIRCLE_START, CIRCLE_END);
-    ctx2.stroke();
-
-    ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, outerCircleRadius, CIRCLE_START, CIRCLE_END);
-    ctx2.stroke();
+    for(let i = 0; i < 3; i++){
+        ctx2.beginPath();
+        ctx2.arc(imageMid.x, imageMid.y, radiuses[i], CIRCLE_START, CIRCLE_END);
+        ctx2.stroke();
+    }
 }, false);
