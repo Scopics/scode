@@ -11,8 +11,8 @@ const ctx2 = cvs2.getContext('2d');
 
 cvs1.width = 700;
 cvs1.height = 700;
-const videoW = 640;
-const videoH = 480;
+const videoW = 933;
+const videoH = 700;
 const videoOffsetX = (cvs1.width - videoW) / 2;
 const videoOffsetY = (cvs1.height - videoH) / 2;
 
