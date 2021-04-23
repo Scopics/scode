@@ -9,6 +9,14 @@ const cvs2 = document.getElementById('canvas2');
 const ctx1 = cvs1.getContext('2d');
 const ctx2 = cvs2.getContext('2d');
 
+cvs1.width = 700;
+cvs1.height = 700;
+const videoW = 640;
+const videoH = 480;
+const videoOffsetX = (cvs1.width - videoW) / 2;
+const videoOffsetY = (cvs1.height - videoH) / 2;
+
+
 let correctPercentage = [
     {min: 0, max: 0}, 
     {min: 5, max : 10}, 
@@ -22,16 +30,15 @@ radiuses = [10, 100, 300];
 const circleWidth = 0.5;
 
 const img1 = new Image();
-img1.src = './assets/img/scode_example2.png';
-
-img1.onload = () => {
-    cvs1.width = img.width;
-    cvs1.height = img.height;
-    ctx1.drawImage(img1, 0, 0);
-}
 
 let img = new Image();
 img.src = './assets/img/scode_example2.png';
+
+function clearCanvas(canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
 const square = (x) => x * x;
 
@@ -87,12 +94,13 @@ function checkIfScode(img){
     return true;
 }
 
-img.addEventListener('load', function() {
+function onLoad(){
     cvs2.width = img.width;
     cvs2.height = img.height;
     imageMid.x = img.width / 2;
     imageMid.y = img.height / 2;
     ctx2.imageSmoothingEnabled = false;
+    clearCanvas(cvs2);
     ctx2.drawImage(img, 0, 0);
 
     img = ctx2.getImageData(0, 0, img.width, img.height);
@@ -114,4 +122,21 @@ img.addEventListener('load', function() {
         ctx2.arc(imageMid.x, imageMid.y, radiuses[i], CIRCLE_START, CIRCLE_END);
         ctx2.stroke();
     }
-}, false);
+}
+
+document.getElementById("makePhoto").addEventListener("click", function() {
+    clearCanvas(cvs1);
+    ctx1.drawImage(video, videoOffsetX, videoOffsetY, videoW, videoH);
+    img = new Image();
+    img.src = cvs1.toDataURL('image/png', 1);
+    img.onload = () => {
+        onLoad();
+    }
+});
+
+img.onload = () => {
+    cvs1.width = img.height;
+    cvs1.height = img.width;
+    ctx1.drawImage(img, 0, 0);
+    onLoad();
+};
