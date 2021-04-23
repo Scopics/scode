@@ -23,6 +23,7 @@ function drawScode(code, bg = '#fff', color = '#000') {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
   ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
 
   quantity = code.length;
   const maxItem = Math.max(...code);
