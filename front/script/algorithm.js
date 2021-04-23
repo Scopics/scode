@@ -1,7 +1,18 @@
+const CIRCLE_START = 0;
+const CIRCLE_END = 2 * Math.PI;
+const PIXEL_DATA_LENGTH = 4;
+
+
 const cvs1 = document.getElementById('canvas1');
 const cvs2 = document.getElementById('canvas2');
 const ctx1 = cvs1.getContext('2d');
 const ctx2 = cvs2.getContext('2d');
+
+let correctPercentage = {
+    inner: {min: 0, max: 0},
+    middle: {min: 5, max : 10},
+    outer: {min: 0, max: 0}
+}
 
 let imageMid = {x: 350, y: 350}
 
@@ -28,13 +39,13 @@ const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(Math.pow((x - imageMid.
 function blackwhite(img) {
     const picLength = img.width * img.height;
 
-    for (let i = 0; i < picLength * 4; i += 4) {
+    for (let i = 0; i < picLength * PIXEL_DATA_LENGTH; i += PIXEL_DATA_LENGTH) {
         const R = img.data[i];
         const G = img.data[i + 1];
         const B = img.data[i + 2];
 
         brightness = parseInt((R + G + B) / 3);
-        white = 255 * (brightness >= 128 ? 1 : 0);
+        white = 255 * (brightness >= 128);
 
         img.data[i] = white;
         img.data[i + 1] = white;
@@ -84,7 +95,11 @@ function checkIfScode(img){
     console.log('Circles black / white pixels percentage:');
     console.log(innerPercents, middlePercents, outerPercents);
     
-    return (innerPercents === 0) && (middlePercents > 5 && middlePercents < 10) && (outerPercents === 0);
+    const innerCorrect = innerPercents >= correctPercentage.inner.min && innerPercents <= correctPercentage.inner.max;
+    const middleCorrect = middlePercents >= correctPercentage.middle.min && middlePercents <= correctPercentage.middle.max;
+    const outerCorrect = outerPercents >= correctPercentage.outer.min && outerPercents <= correctPercentage.outer.max;
+
+    return innerCorrect && middleCorrect && outerCorrect
 }
 
 img.addEventListener('load', function() {
@@ -108,14 +123,14 @@ img.addEventListener('load', function() {
     ctx2.strokeStyle = 'red';
 
     ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, middleCircleRadius, 0, 2 * Math.PI);
+    ctx2.arc(imageMid.x, imageMid.y, middleCircleRadius, CIRCLE_START, CIRCLE_END);
     ctx2.stroke();
 
     ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, innerCircleRadius, 0, 2 * Math.PI);
+    ctx2.arc(imageMid.x, imageMid.y, innerCircleRadius, CIRCLE_START, CIRCLE_END);
     ctx2.stroke();
 
     ctx2.beginPath();
-    ctx2.arc(imageMid.x, imageMid.y, outerCircleRadius, 0, 2 * Math.PI);
+    ctx2.arc(imageMid.x, imageMid.y, outerCircleRadius, CIRCLE_START, CIRCLE_END);
     ctx2.stroke();
 }, false);
