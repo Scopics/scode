@@ -4,7 +4,10 @@ on:
   push:
     branches: [ main ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+  IMAGE_NAME: docker.pkg.github.com/scopics/scode/scode
+  VERSION: latest
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -24,21 +27,27 @@ jobs:
       - run: npm ci
       - run: npm test
       
-  build:
+  publish:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     needs: [ test ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Bump release version
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.2
+        with:
+          current-version: ${{ github.repository }}
+          version-fragment: 'feature'
+      - name: Do something with your bumped release version
+        run: echo ${{ steps.bump_version.outputs.next-version }}
+        
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Docker login
         run: echo "${{ secrets.SCOPICS_ACESS_TOKEN }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: Docker build
-        run: docker build -f Dockerfile . -t docker.pkg.github.com/scopics/scode/scode:1.2
-      - name: Docker push    
-        run: docker push docker.pkg.github.com/scopics/scode/scode:1.2
-      - name: View docker images
-        run: docker images -a
-        
+      - name: Docker build & push
+        run: |
+          docker build -f Dockerfile . -t $IMAGE_NAME:$VERSION
+          docker push $IMAGE_NAME:$VERSION       
