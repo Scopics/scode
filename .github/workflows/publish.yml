@@ -33,10 +33,10 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Push to Docker Hub
-        uses: docker/build-push-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_LOGIN }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: tedi4t/scode:latest
-          tag_with_ref: true
+      - name: Docker login
+        run: echo "${{ secrets.SCOPICS_ACESS_TOKEN }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - name: Docker build
+        run: docker build -f Dockerfile . -t docker.pkg.github.com/scopics/scode/scode:1.2
+      - name: View docker images
+        run: docker images -a
+        
