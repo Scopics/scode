@@ -31,18 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     needs: [ test ]
-
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - name: Bump release version
-        id: bump_version
-        uses: christian-draeger/increment-semantic-version@1.0.2
-        with:
-          current-version: ${{ github.repository }}
-          version-fragment: 'feature'
-      - name: Do something with your bumped release version
-        run: echo ${{ steps.bump_version.outputs.next-version }}
-        
+    steps:      
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Docker login
