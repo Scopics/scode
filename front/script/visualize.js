@@ -1,34 +1,37 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const canvasWidth = canvas.width;
-const MIN_RADIUS = canvasWidth * 0.1;
-const MAX_RADIUS = canvasWidth * 0.3;
-const INNER_RADIUS = canvasWidth * 0.1;
+const scodeWidth = canvas.width * 0.7;
+const MIN_RADIUS = scodeWidth * 0.1;
+const MAX_RADIUS = scodeWidth * 0.3;
+const INNER_RADIUS = scodeWidth * 0.1;
 const MAX_ANGLE = Math.PI * 2;
 const QUARTERS = 4;
-const bgColor = '#2d2d2d';
+const defaultBgColor = 'white';
 
 const mid = {
-  x: canvasWidth / 2,
-  y: canvasWidth / 2
+  x: canvas.width / 2,
+  y: canvas.height / 2
 };
 
-function fillScode(fillColor = bgColor) {
+console.log(mid.x, mid.y);
+
+function fillScode(fillColor = defaultBgColor) {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = fillColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawScode(code, bg = '#fff', color = '#000') {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  ctx.strokeStyle = color;
+  fillScode();
 
-  quantity = code.length;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+
+  let quantity = code.length;
   const maxItem = Math.max(...code);
   const scale = MAX_RADIUS / maxItem;
   if (quantity % QUARTERS !== 0) {
-    console.log('rays are not devided by 4');
+    console.log('rays are not divided by 4');
     return;
   }
   

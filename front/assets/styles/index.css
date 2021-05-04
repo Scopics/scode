@@ -886,9 +886,70 @@ body {
   margin-bottom: 25px;
 }
 
+.exit_btn {
+  position: relative;
+  width: 70px;
+  cursor: pointer;
+}
+.exit_btn .inner {
+  width: inherit;
+  text-align: center;
+}
+.exit_btn .inner label {
+  font-weight: 700;
+  line-height: 6em;
+  text-transform: uppercase;
+  color: #ff3d00;
+  transition: all 0.3s ease-in;
+  opacity: 0;
+  cursor: pointer;
+}
+.exit_btn .inner:before, .exit_btn .inner:after {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: inherit;
+  background: #ff3d00;
+  left: 0;
+  transition: all 0.3s ease-in;
+}
+.exit_btn .inner:before {
+  top: 50%;
+  transform: rotate(45deg);
+}
+.exit_btn .inner:after {
+  bottom: 50%;
+  transform: rotate(-45deg);
+}
+
+.exit_btn:hover label {
+  opacity: 1;
+}
+
+.exit_btn:hover .inner:before,
+.exit_btn:hover .inner:after {
+  transform: rotate(0);
+}
+
+.exit_btn:hover .inner:before {
+  top: 20%;
+}
+
+.exit_btn:hover .inner:after {
+  bottom: 20%;
+}
+
 body {
   position: relative;
   overflow-x: hidden;
+}
+
+h4.section_header {
+  font-family: "Dancing Script", cursive;
+  font-size: 48px;
+  font-style: italic;
+  font-weight: 700;
+  color: #ff3d00;
 }
 
 section#create.pop-up {
@@ -957,6 +1018,28 @@ section#read #video-read {
 section#read video {
   width: 100%;
 }
+section#read #video-block {
+  margin: 0 auto;
+  position: relative;
+}
+section#read #video-block #video_overlays {
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+section#read #video-block #video_overlays #aim_img {
+  position: absolute;
+  margin: 0 auto;
+  left: 50%;
+  top: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.8s linear;
+}
+section#read #video-block #video_overlays #aim_img.active {
+  opacity: 1;
+}
 section#read #video-data {
   padding-right: 15px;
   padding-left: 10px;
@@ -989,4 +1072,6 @@ section#read #video-data #response-video {
 
 .text-orange {
   color: #ff3d00;
-}/*# sourceMappingURL=index.css.map */
+}
+
+/*# sourceMappingURL=index.css.map */
