@@ -9,7 +9,6 @@ env:
   VERSION: latest
 
 jobs:
-  
   lint:
     runs-on: ubuntu-latest
 
@@ -26,7 +25,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run lint --if-present
-  
+
   test:
     runs-on: ubuntu-latest
 
@@ -49,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     needs: [test, lint]
-    
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
