@@ -2,7 +2,7 @@ name: Build and publish
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 env:
   IMAGE_NAME: docker.pkg.github.com/scopics/scode/scode
@@ -26,13 +26,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm test
-      
+
   publish:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: [ test ]
+    needs: [test]
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:      
+    steps:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Docker login
@@ -40,4 +40,4 @@ jobs:
       - name: Docker build & push
         run: |
           docker build -f Dockerfile . -t $IMAGE_NAME:$VERSION
-          docker push $IMAGE_NAME:$VERSION       
+          docker push $IMAGE_NAME:$VERSION

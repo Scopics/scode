@@ -10,13 +10,13 @@ const defaultBgColor = 'white';
 
 const mid = {
   x: canvas.width / 2,
-  y: canvas.height / 2
+  y: canvas.height / 2,
 };
 
 console.log(mid.x, mid.y);
 
 function fillScode(fillColor = defaultBgColor) {
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   ctx.fillStyle = fillColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
@@ -34,14 +34,13 @@ function drawScode(code, bg = '#fff', color = '#000') {
     console.log('rays are not divided by 4');
     return;
   }
-  
-  for(let i = 0; i < quantity; i++){
 
+  for (let i = 0; i < quantity; i++) {
     const len = code.shift();
     lineLength = MIN_RADIUS + len * scale;
 
     const step = 1 / quantity;
-    
+
     // to start from top
     const angleOffset = Math.PI / 2;
     const angle = MAX_ANGLE * i * step - angleOffset;

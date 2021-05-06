@@ -1,4 +1,3 @@
-
 const youtubeLinkElem = $('#youtube-link');
 const bgElem = $('#scode-bg');
 const colorElem = $('#scode-lines-color');
@@ -6,8 +5,8 @@ const sizeElem = $('#scode-size');
 const formatElem = $('#scode-format');
 
 const options = {
-  linkSeparator: '='
-}
+  linkSeparator: '=',
+};
 
 function setCanvasSize() {
   const canvas = document.getElementById('canvas');
@@ -24,15 +23,15 @@ const onInput = () => {
   const size = sizeElem.val();
   const format = formatElem.val();
 
-  if(link.length > 50 || link.length < 20 || link.search('=') === -1){
+  if (link.length > 50 || link.length < 20 || link.search('=') === -1) {
     console.error('Invalid link');
     return;
   }
 
   getRays(link, (data) => {
     drawScode(data.rays, bg, color);
-  })
-}
+  });
+};
 
 setCanvasSize();
 onInput();

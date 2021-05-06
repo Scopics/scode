@@ -1,3 +1,3 @@
-$('#scode-bg').change(function() {
+$('#scode-bg').change(function () {
   console.log('Changed bg!');
-})
+});
