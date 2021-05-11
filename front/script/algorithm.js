@@ -35,7 +35,7 @@ let img = new Image();
 img.src = './assets/img/scode_example2.png';
 
 function clearCanvas(canvas) {
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
@@ -61,18 +61,20 @@ function blackwhite(img) {
     }
 }
 
-function checkIfScode(img){
+function checkIfScode(matrix){
     const amounts = [0, 0, 0];
     const blackAmounts = [0, 0, 0];
 
-    for(let y = 0; y < img.height; y++){
-        for(let x = 0; x < img.width; x++){
-            const i = (y * img.width + x) * 4;
-            const R = img.data[i];
+    const h = matrix.length;
+    const w = matrix[0].length;
+
+    for(let y = 0; y < h; y++){
+        for(let x = 0; x < w; x++){
+            const pix = matrix[x][y];
             for(let i = 0; i < 3; i++){
                 if(checkCircle(x, y, radiuses[i])){
                     amounts[i]++;
-                    if(R === 0){
+                    if(pix){
                         blackAmounts[i]++;
                     }
                 }
@@ -94,6 +96,24 @@ function checkIfScode(img){
     return true;
 }
 
+function getMatrix(img){
+    const matrix = [];
+    const row = img.width;
+    const column = img.height;
+    for(let i = 0; i < column; i ++){
+        matrix[i] = [];
+        for(let j = 0; j < row; j ++){
+            const pixel = img.data[4 * i * row + 4 * j] > 128 ? 0 : 1;
+            matrix[i].push(pixel);
+            ctx2.beginPath();
+            ctx2.fillStyle = pixel ? 'red' : 'blue';
+            ctx2.fillRect(j, i, 0.8, 0.8);
+            ctx2.fill();
+        }
+    }
+    return matrix;
+}
+
 function onLoad(){
     cvs2.width = img.width;
     cvs2.height = img.height;
@@ -106,14 +126,15 @@ function onLoad(){
     img = ctx2.getImageData(0, 0, img.width, img.height);
     
     blackwhite(img);
+    ctx2.putImageData(img, 0, 0);
 
-    if(checkIfScode(img)){
+    const matrix = getMatrix(img);
+
+    if(checkIfScode(matrix)){
         console.log('Image is scode!');
     } else {
         console.log('Image is not scode');        
     }
-
-    ctx2.putImageData(img, 0, 0);
 
     ctx2.strokeStyle = 'red';
 
@@ -124,7 +145,7 @@ function onLoad(){
     }
 }
 
-document.getElementById("makePhoto").addEventListener("click", function() {
+document.getElementById('makePhoto').addEventListener('click', function() {
     clearCanvas(cvs1);
     ctx1.drawImage(video, videoOffsetX, videoOffsetY, videoW, videoH);
     img = new Image();
