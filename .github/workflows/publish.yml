@@ -2,6 +2,10 @@ name: Build and publish
 
 on:
   push:
+    paths: 
+      - '**.(js|ts|json|yml)'
+    branches: [main]
+  pull_request:
     branches: [main]
 
 env:
