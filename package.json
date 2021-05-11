@@ -2,7 +2,7 @@
   "name": "scode",
   "version": "1.0.0",
   "description": "![Logo](https://raw.githubusercontent.com/MaksGovor/Images/master/Voting-system/logoScode.png)",
-  "author": "",
+  "author": "Scopics contributors",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
