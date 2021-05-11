@@ -2,9 +2,9 @@ name: Build and publish
 
 on:
   push:
-    paths: 
-      - '**.(js|ts|json|yml)'
     branches: [main]
+    paths-ignore:
+      - 'docs/**'
   pull_request:
     branches: [main]
 
