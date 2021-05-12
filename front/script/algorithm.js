@@ -1,5 +1,7 @@
 const DIAGONAL = Math.sqrt(2);
 
+const RAYS_COUNT = 32;
+
 const MAX_PATH_ITERATIONS = 4000;
 
 const PIX_DATA_LEN = 4;
@@ -49,9 +51,17 @@ const square = (x) => x * x;
 
 const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(square(x - imageMid.x)  + square(y - imageMid.y)) - radius) < circleWidth;
 
-const lineLen = (line) => line.end.subtract(line.start).length();
+const lineVec = (line) => line.end.subtract(line.start);
+
+const lineLen = (line) => lineVec(line).length();
 
 const getLineMid = (line) => line.end.add(line.start).divide(2);
+
+const getOppositeRayIndx = (index, raysCount = RAYS_COUNT) => (index + RAYS_COUNT / 2) % RAYS_COUNT;
+
+const getLeftPerpendicularRayIndx = (ndex, raysCount = RAYS_COUNT) => (index + RAYS_COUNT / 4) % RAYS_COUNT;
+
+const getRightPerpendicularRayIndx = (index, raysCount = RAYS_COUNT) => (index + 3 * RAYS_COUNT / 4) % RAYS_COUNT;
 
 function blackwhite(img) {
     const picLength = img.width * img.height;
@@ -294,7 +304,30 @@ function sortLines(lines){
     // }
 }
 
-function getLineLengths(lines){
+function getLineLengths(linelengths){
+    let startLen = linelengths[0];
+    let longestLine = startLen;
+    let shortestLine = startLen;
+    for(let i = 1; i < linelengths.length; i++){
+        const len = linelengths[i];
+        longestLine = len > longestLine ? len : longestLine;
+        shortestLine = len < shortestLine ? len : shortestLine;
+    }
+    const maxlen = longestLine - shortestLine;
+    const rays = [];
+    for(const line of linelengths){
+        //let rayValue = Math.floor((line - shortestLine) / maxlen * 16);
+        //let rayValue = (line - shortestLine) / maxlen * 15;
+        let rayValue = Math.round((line - shortestLine) / maxlen * 15);
+        //rayValue = rayValue >= 16 ? 15 : rayValue;
+        rays.push(rayValue)
+    }
+    return rays;
+}
+
+function normalizeLengths(lines){
+    const lengths = lines.map((line) => lineLen(line));
+
     let startLen = lineLen(lines[0])
     let longestLine = startLen;
     let shortestLine = startLen;
@@ -303,15 +336,61 @@ function getLineLengths(lines){
         longestLine = len > longestLine ? len : longestLine;
         shortestLine = len < shortestLine ? len : shortestLine;
     }
-    const maxoffset = 0.01;
-    const maxlen = longestLine - shortestLine + maxoffset;
+    const maxlen = longestLine - shortestLine;
     const rays = [];
     for(const line of lines){
-        const rayValue = Math.floor((lineLen(line) - shortestLine) / maxlen * 16);
+        let rayValue = Math.floor((lineLen(line) - shortestLine) / maxlen * 16);
+        // let rayValue = Math.round((lineLen(line) - shortestLine) / maxlen * 15);
+        rayValue = rayValue >= 16 ? 15 : rayValue;
         rays.push(rayValue)
     }
-    console.log(rays);
-    return rays;
+
+    const len = rays.length;
+    const sides = 4;
+    const step = len / sides;
+
+    let startFound = false;
+    let iterator = 0;
+    const neededLen = [15, 15, 0, 15];
+
+    while (!startFound && iterator < len) {
+      let correct = true;
+
+      neededLen.forEach((item, i) => {
+        const ind = (iterator + step * i) % len;
+        if (item !== rays[ind]) {
+          correct = false;
+        }
+      });
+
+      if (correct) {
+        startFound = true;
+      } else {
+        iterator++;
+      }
+    }
+
+    if (!startFound) throw new Error('Something is wrong...');
+    const stabilizedLines = lines.slice(iterator).concat(lines.slice(0, iterator));
+    const stabilized = lengths.slice(iterator).concat(lengths.slice(0, iterator));
+
+    const top = 0;
+    const right = step;
+    const left = step * 3;
+
+    //console.log(stabilized[top]);
+    //console.log(stabilized[right]);
+    //console.log(stabilized[bottom]);
+    //console.log(stabilized[left]);
+
+    const coef = ((stabilized[right] + stabilized[left]) / 2) / stabilized[top];
+    //console.log('Distortion(horizontal/vertical): ' + coef);
+
+    for(let i = 0; i < stabilizedLines.length; i++){
+        let angle = -Vector2.getAngle(lineVec(stabilizedLines[i])) - -Vector2.getAngle(lineVec(stabilizedLines[0]).rotate(-Math.PI / 2));
+        stabilized[i] += stabilized[i] * Math.abs(Math.cos(angle)) * (1 - coef);
+    }
+    return stabilized;
 }
 
 function onLoad(){
@@ -340,10 +419,12 @@ function onLoad(){
 
     sortLines(lines);
 
-    const rays = getLineLengths(lines);
-
+    const rays = getLineLengths(normalizeLengths(lines));
+    console.log('RecognizedRays:', rays);
     getLink(rays, (response) => {
-        console.log(response);
+         console.log(response);
+         const { link } = response;
+         $('#response-video').attr('src', link);
     })
 
     ctx2.strokeStyle = 'red';
