@@ -286,24 +286,8 @@ function sortLines(lines){
         return Vector2.getAngle(vector);
     }
 
-    // const getCorrectAngle = (line) => {
-    //     const angle = -getLinePosAngle(line);
-    //     let angle2 = angle;
-    //     angle2 = angle2 < 0 ? 2 * Math.PI + angle2 : angle2;
-    //     return angle2;
-    // }
-
-    // const compare = (a, b) => getCorrectAngle(a) - getCorrectAngle(b);
     const compare = (a, b) => getLinePosAngle(a) - getLinePosAngle(b);
     lines.sort(compare);
-
-    // const colors = ['red', 'orange', 'green', 'cyan', 'blue', 'purple'];
-
-    // for(let i = 0; i < lines.length; i++){
-    //     ctx2.strokeStyle = colors[i >= colors.length ? colors.length - 1 : i];
-    //     drawCircle(ctx2, getLineMid(lines[i]));
-    //     //console.log(getCorrectAngle(lines[i]));
-    // }
 }
 
 function getLineLengths(linelengths){
@@ -318,10 +302,7 @@ function getLineLengths(linelengths){
     const maxlen = longestLine - shortestLine;
     const rays = [];
     for(const line of linelengths){
-        //let rayValue = Math.floor((line - shortestLine) / maxlen * 16);
-        //let rayValue = (line - shortestLine) / maxlen * 15;
         let rayValue = Math.round((line - shortestLine) / maxlen * 15);
-        //rayValue = rayValue >= 16 ? 15 : rayValue;
         rays.push(rayValue)
     }
     return rays;
@@ -342,7 +323,6 @@ function normalizeLengths(lines){
     const rays = [];
     for(const line of lines){
         let rayValue = Math.floor((lineLen(line) - shortestLine) / maxlen * 16);
-        // let rayValue = Math.round((lineLen(line) - shortestLine) / maxlen * 15);
         rayValue = rayValue >= 16 ? 15 : rayValue;
         rays.push(rayValue)
     }
@@ -380,13 +360,7 @@ function normalizeLengths(lines){
     const right = step;
     const left = step * 3;
 
-    //console.log(stabilized[top]);
-    //console.log(stabilized[right]);
-    //console.log(stabilized[bottom]);
-    //console.log(stabilized[left]);
-
     const coef = ((stabilized[right] + stabilized[left]) / 2) / stabilized[top];
-    //console.log('Distortion(horizontal/vertical): ' + coef);
 
     for(let i = 0; i < stabilizedLines.length; i++){
         let angle = -Vector2.getAngle(lineVec(stabilizedLines[i])) - -Vector2.getAngle(lineVec(stabilizedLines[0]).rotate(-Math.PI / 2));
@@ -409,6 +383,12 @@ function onLoad(){
     blackwhite(img);
     ctx2.putImageData(img, 0, 0);
 
+    ctx2.strokeStyle = 'red';
+
+    for(let i = 0; i < 3; i++){
+        drawCircle(ctx2, imageMid, radiuses[i]);
+    }
+
     const matrix = getMatrix(img);
 
     if(checkIfScode(matrix)){
@@ -429,12 +409,6 @@ function onLoad(){
          const { link } = response;
          $('#response-video').attr('src', link);
     })
-
-    ctx2.strokeStyle = 'red';
-
-    for(let i = 0; i < 3; i++){
-        drawCircle(ctx2, imageMid, radiuses[i]);
-    }
 }
 
 document.getElementById('makePhoto').addEventListener('click', function() {
