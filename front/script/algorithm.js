@@ -30,9 +30,9 @@ let correctPercentage = [
     {min: 0, max: 0}
 ];
 
-let imageMid = new Vector2(350, 350);
+const imageMid = new Vector2(350, 350);
 
-radiuses = [10, 100, 300];
+const radiuses = [10, 100, 300];
 
 const circleWidth = 0.5;
 
@@ -123,7 +123,9 @@ function getMatrix(img){
         matrix[j] = [];
         for(let i = 0; i < row; i++){
             const ind = PIX_DATA_LEN * j * row + PIX_DATA_LEN * i;
-            const pixel = img.data[ind] >= BLACKWHITE_MID_THRESHOLD ? 0 : 1;
+            const x = i - imageMid.x;
+            const y = j - imageMid.y;
+            const pixel = Math.sqrt(x * x + y * y) < radiuses[2] && img.data[ind] < BLACKWHITE_MID_THRESHOLD ? 1 : 0;
             matrix[j].push(pixel);
         }
     }
@@ -412,7 +414,8 @@ function onLoad(){
     if(checkIfScode(matrix)){
         console.log('Image is scode!');
     } else {
-        console.log('Image is not scode');        
+        console.log('Image is not scode');   
+        return;
     }
 
     const lines = findlines(matrix);
