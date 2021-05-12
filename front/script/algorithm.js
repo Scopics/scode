@@ -1,5 +1,7 @@
 const DIAGONAL = Math.sqrt(2);
 
+const RAYS_COUNT = 32;
+
 const MAX_PATH_ITERATIONS = 4000;
 
 const PIX_DATA_LEN = 4;
@@ -7,6 +9,7 @@ const PIX_DATA_LEN = 4;
 const BLACKWHITE_THRESHOLD = 80;
 const BLACKWHITE_MID_THRESHOLD = 128;
 
+const MIN_LINE_LEN = 40;
 
 const cvs1 = document.getElementById('canvas1');
 const cvs2 = document.getElementById('canvas2');
@@ -27,9 +30,9 @@ let correctPercentage = [
     {min: 0, max: 0}
 ];
 
-let imageMid = {x: 350, y: 350}
+const imageMid = new Vector2(350, 350);
 
-radiuses = [10, 100, 300];
+const radiuses = [10, 100, 300];
 
 const circleWidth = 0.5;
 
@@ -47,6 +50,18 @@ function clearCanvas(canvas) {
 const square = (x) => x * x;
 
 const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(square(x - imageMid.x)  + square(y - imageMid.y)) - radius) < circleWidth;
+
+const lineVec = (line) => line.end.subtract(line.start);
+
+const lineLen = (line) => lineVec(line).length();
+
+const getLineMid = (line) => line.end.add(line.start).divide(2);
+
+const getOppositeRayIndx = (index, raysCount = RAYS_COUNT) => (index + RAYS_COUNT / 2) % RAYS_COUNT;
+
+const getLeftPerpendicularRayIndx = (ndex, raysCount = RAYS_COUNT) => (index + RAYS_COUNT / 4) % RAYS_COUNT;
+
+const getRightPerpendicularRayIndx = (index, raysCount = RAYS_COUNT) => (index + 3 * RAYS_COUNT / 4) % RAYS_COUNT;
 
 function blackwhite(img) {
     const picLength = img.width * img.height;
@@ -108,7 +123,9 @@ function getMatrix(img){
         matrix[j] = [];
         for(let i = 0; i < row; i++){
             const ind = PIX_DATA_LEN * j * row + PIX_DATA_LEN * i;
-            const pixel = img.data[ind] >= BLACKWHITE_MID_THRESHOLD ? 0 : 1;
+            const x = i - imageMid.x;
+            const y = j - imageMid.y;
+            const pixel = Math.sqrt(x * x + y * y) < radiuses[2] && img.data[ind] < BLACKWHITE_MID_THRESHOLD ? 1 : 0;
             matrix[j].push(pixel);
         }
     }
@@ -221,7 +238,7 @@ function findDistanceToLine(point, linePos, lineNormVector){
 }
 
 function findlines(matrix){
-    const lines = [];
+    let lines = [];
     const h = matrix.length;
     const w = matrix[0].length;
 
@@ -259,6 +276,97 @@ function findlines(matrix){
         }
     }
     console.log('Found lines: ' + lines.length);
+    lines = lines.filter((line) => lineLen(line) > MIN_LINE_LEN);
+    return lines;
+}
+
+function sortLines(lines){
+    const getLinePosAngle = (line) => {
+        const vector = getLineMid(line).subtract(imageMid);
+        return Vector2.getAngle(vector);
+    }
+
+    const compare = (a, b) => getLinePosAngle(a) - getLinePosAngle(b);
+    lines.sort(compare);
+}
+
+function getLineLengths(linelengths){
+    let startLen = linelengths[0];
+    let longestLine = startLen;
+    let shortestLine = startLen;
+    for(let i = 1; i < linelengths.length; i++){
+        const len = linelengths[i];
+        longestLine = len > longestLine ? len : longestLine;
+        shortestLine = len < shortestLine ? len : shortestLine;
+    }
+    const maxlen = longestLine - shortestLine;
+    const rays = [];
+    for(const line of linelengths){
+        let rayValue = Math.round((line - shortestLine) / maxlen * 15);
+        rays.push(rayValue)
+    }
+    return rays;
+}
+
+function normalizeLengths(lines){
+    const lengths = lines.map((line) => lineLen(line));
+
+    let startLen = lineLen(lines[0])
+    let longestLine = startLen;
+    let shortestLine = startLen;
+    for(let i = 1; i < lines.length; i++){
+        const len = lineLen(lines[i]);
+        longestLine = len > longestLine ? len : longestLine;
+        shortestLine = len < shortestLine ? len : shortestLine;
+    }
+    const maxlen = longestLine - shortestLine;
+    const rays = [];
+    for(const line of lines){
+        let rayValue = Math.floor((lineLen(line) - shortestLine) / maxlen * 16);
+        rayValue = rayValue >= 16 ? 15 : rayValue;
+        rays.push(rayValue)
+    }
+
+    const len = rays.length;
+    const sides = 4;
+    const step = len / sides;
+
+    let startFound = false;
+    let iterator = 0;
+    const neededLen = [15, 15, 0, 15];
+
+    while (!startFound && iterator < len) {
+      let correct = true;
+
+      neededLen.forEach((item, i) => {
+        const ind = (iterator + step * i) % len;
+        if (item !== rays[ind]) {
+          correct = false;
+        }
+      });
+
+      if (correct) {
+        startFound = true;
+      } else {
+        iterator++;
+      }
+    }
+
+    if (!startFound) throw new Error('Something is wrong...');
+    const stabilizedLines = lines.slice(iterator).concat(lines.slice(0, iterator));
+    const stabilized = lengths.slice(iterator).concat(lengths.slice(0, iterator));
+
+    const top = 0;
+    const right = step;
+    const left = step * 3;
+
+    const coef = ((stabilized[right] + stabilized[left]) / 2) / stabilized[top];
+
+    for(let i = 0; i < stabilizedLines.length; i++){
+        let angle = -Vector2.getAngle(lineVec(stabilizedLines[i])) - -Vector2.getAngle(lineVec(stabilizedLines[0]).rotate(-Math.PI / 2));
+        stabilized[i] += stabilized[i] * Math.abs(Math.cos(angle)) * (1 - coef);
+    }
+    return stabilized;
 }
 
 function onLoad(){
@@ -275,21 +383,32 @@ function onLoad(){
     blackwhite(img);
     ctx2.putImageData(img, 0, 0);
 
-    const matrix = getMatrix(img);
-
-    if(checkIfScode(matrix)){
-        console.log('Image is scode!');
-    } else {
-        console.log('Image is not scode');        
-    }
-
-    findlines(matrix);
-
     ctx2.strokeStyle = 'red';
 
     for(let i = 0; i < 3; i++){
         drawCircle(ctx2, imageMid, radiuses[i]);
     }
+
+    const matrix = getMatrix(img);
+
+    if(checkIfScode(matrix)){
+        console.log('Image is scode!');
+    } else {
+        console.log('Image is not scode');   
+        return;
+    }
+
+    const lines = findlines(matrix);
+
+    sortLines(lines);
+
+    const rays = getLineLengths(normalizeLengths(lines));
+    console.log('RecognizedRays:', rays);
+    getLink(rays, (response) => {
+         console.log(response);
+         const { link } = response;
+         $('#response-video').attr('src', link);
+    })
 }
 
 document.getElementById('makePhoto').addEventListener('click', function() {
