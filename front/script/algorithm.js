@@ -7,6 +7,7 @@ const PIX_DATA_LEN = 4;
 const BLACKWHITE_THRESHOLD = 80;
 const BLACKWHITE_MID_THRESHOLD = 128;
 
+const MIN_LINE_LEN = 40;
 
 const cvs1 = document.getElementById('canvas1');
 const cvs2 = document.getElementById('canvas2');
@@ -27,7 +28,7 @@ let correctPercentage = [
     {min: 0, max: 0}
 ];
 
-let imageMid = {x: 350, y: 350}
+let imageMid = new Vector2(350, 350);
 
 radiuses = [10, 100, 300];
 
@@ -47,6 +48,10 @@ function clearCanvas(canvas) {
 const square = (x) => x * x;
 
 const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(square(x - imageMid.x)  + square(y - imageMid.y)) - radius) < circleWidth;
+
+const lineLen = (line) => line.end.subtract(line.start).length();
+
+const getLineMid = (line) => line.end.add(line.start).divide(2);
 
 function blackwhite(img) {
     const picLength = img.width * img.height;
@@ -221,7 +226,7 @@ function findDistanceToLine(point, linePos, lineNormVector){
 }
 
 function findlines(matrix){
-    const lines = [];
+    let lines = [];
     const h = matrix.length;
     const w = matrix[0].length;
 
@@ -259,6 +264,54 @@ function findlines(matrix){
         }
     }
     console.log('Found lines: ' + lines.length);
+    lines = lines.filter((line) => lineLen(line) > MIN_LINE_LEN);
+    return lines;
+}
+
+function sortLines(lines){
+    const getLinePosAngle = (line) => {
+        const vector = getLineMid(line).subtract(imageMid);
+        return Vector2.getAngle(vector);
+    }
+
+    // const getCorrectAngle = (line) => {
+    //     const angle = -getLinePosAngle(line);
+    //     let angle2 = angle;
+    //     angle2 = angle2 < 0 ? 2 * Math.PI + angle2 : angle2;
+    //     return angle2;
+    // }
+
+    // const compare = (a, b) => getCorrectAngle(a) - getCorrectAngle(b);
+    const compare = (a, b) => getLinePosAngle(a) - getLinePosAngle(b);
+    lines.sort(compare);
+
+    // const colors = ['red', 'orange', 'green', 'cyan', 'blue', 'purple'];
+
+    // for(let i = 0; i < lines.length; i++){
+    //     ctx2.strokeStyle = colors[i >= colors.length ? colors.length - 1 : i];
+    //     drawCircle(ctx2, getLineMid(lines[i]));
+    //     //console.log(getCorrectAngle(lines[i]));
+    // }
+}
+
+function getLineLengths(lines){
+    let startLen = lineLen(lines[0])
+    let longestLine = startLen;
+    let shortestLine = startLen;
+    for(let i = 1; i < lines.length; i++){
+        const len = lineLen(lines[i]);
+        longestLine = len > longestLine ? len : longestLine;
+        shortestLine = len < shortestLine ? len : shortestLine;
+    }
+    const maxoffset = 0.01;
+    const maxlen = longestLine - shortestLine + maxoffset;
+    const rays = [];
+    for(const line of lines){
+        const rayValue = Math.floor((lineLen(line) - shortestLine) / maxlen * 16);
+        rays.push(rayValue)
+    }
+    console.log(rays);
+    return rays;
 }
 
 function onLoad(){
@@ -283,7 +336,15 @@ function onLoad(){
         console.log('Image is not scode');        
     }
 
-    findlines(matrix);
+    const lines = findlines(matrix);
+
+    sortLines(lines);
+
+    const rays = getLineLengths(lines);
+
+    getLink(rays, (response) => {
+        console.log(response);
+    })
 
     ctx2.strokeStyle = 'red';
 

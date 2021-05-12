@@ -30,6 +30,7 @@ const onInput = () => {
   }
 
   getRays(link, (data) => {
+    console.log(data.rays);
     drawScode(data.rays, bg, color);
   })
 }
