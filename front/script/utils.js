@@ -1,3 +1,5 @@
+const CIRCLE_START = 0;
+const CIRCLE_END = 2 * Math.PI;
 
 function drawline(ctx, a, b){
   ctx.beginPath();
@@ -6,15 +8,17 @@ function drawline(ctx, a, b){
   ctx.stroke();
 }
 
+function drawCircle(ctx, pos, radius = 3){
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, radius, CIRCLE_START, CIRCLE_END);
+  ctx.stroke();
+}
+
 class Vector2 {
   constructor(_x = 0, _y = 0) {
     this.x = _x;
     this.y = _y;
   }
-
-  static middle = new Vector2(400, 400);
-
-  static Zero = new Vector2(0, 0);
 
   static getAngle = (vector) => Math.acos(vector.x / vector.length()) * Math.sign(vector.y);
 
@@ -36,7 +40,7 @@ class Vector2 {
   subtract = (_vector) => {
     return new Vector2(this.x - _vector.x, this.y - _vector.y)
   }
-  reversed = () => {
+  neg = () => {
     return new Vector2(-this.x, -this.y)
   }
 

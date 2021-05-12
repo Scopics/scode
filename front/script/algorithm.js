@@ -1,10 +1,12 @@
 const DIAGONAL = Math.sqrt(2);
 
-const CIRCLE_START = 0;
-const CIRCLE_END = 2 * Math.PI;
-const PIXEL_DATA_LENGTH = 4;
+const MAX_PATH_ITERATIONS = 4000;
+
+const PIX_DATA_LEN = 4;
 
 const BLACKWHITE_THRESHOLD = 80;
+const BLACKWHITE_MID_THRESHOLD = 128;
+
 
 const cvs1 = document.getElementById('canvas1');
 const cvs2 = document.getElementById('canvas2');
@@ -49,7 +51,7 @@ const checkCircle = (x, y, radius) => Math.abs(Math.sqrt(square(x - imageMid.x) 
 function blackwhite(img) {
     const picLength = img.width * img.height;
 
-    for (let i = 0; i < picLength * PIXEL_DATA_LENGTH; i += PIXEL_DATA_LENGTH) {
+    for (let i = 0; i < picLength * PIX_DATA_LEN; i += PIX_DATA_LEN) {
         const R = img.data[i];
         const G = img.data[i + 1];
         const B = img.data[i + 2];
@@ -102,11 +104,12 @@ function getMatrix(img){
     const matrix = [];
     const row = img.width;
     const column = img.height;
-    for(let i = 0; i < column; i ++){
-        matrix[i] = [];
-        for(let j = 0; j < row; j ++){
-            const pixel = img.data[4 * i * row + 4 * j] > 128 ? 0 : 1;
-            matrix[i].push(pixel);
+    for(let j = 0; j < column; j ++){
+        matrix[j] = [];
+        for(let i = 0; i < row; i++){
+            const ind = PIX_DATA_LEN * j * row + PIX_DATA_LEN * i;
+            const pixel = img.data[ind] >= BLACKWHITE_MID_THRESHOLD ? 0 : 1;
+            matrix[j].push(pixel);
         }
     }
     return matrix;
@@ -117,79 +120,73 @@ function exploreLine(matrix, startPos = new Vector2()){
     const w = matrix[0].length;
     const openedNodes = [];
     const closedNodes = [];
-    if(!matrix[startPos.x][startPos.y]){
+    if(!matrix[startPos.y][startPos.x]){
         console.log('fail');
         return null;
     }
-    const startNode = { pos: startPos, g: 0, parent: null };
+    const startNode = { pos: startPos, dist: 0, parent: null };
     openedNodes.push(startNode);
     let curr = startNode;
     let counter = 0;
-    let thebest = curr;
-    while(openedNodes.length > 0 && counter < 4000){
+    let bestNode = curr;
+    while(openedNodes.length > 0 && counter < MAX_PATH_ITERATIONS){
         counter++;
-        if(counter === 4000) throw(new Error("too many iterations"));
-        let bestNode = openedNodes[0];
+        if(counter === MAX_PATH_ITERATIONS) throw(new Error('too many iterations'));
+        let bestOpenNode = openedNodes[0];
         for (let i = 1; i < openedNodes.length; i++){
             let nextNode = openedNodes[i];
-            if (nextNode.g > bestNode.g){
-               bestNode = nextNode;
+            if (nextNode.dist > bestOpenNode.dist){
+               bestOpenNode = nextNode;
             }
         }
-        if(bestNode.g > thebest.g){
-            thebest = bestNode;
+        if(bestOpenNode.dist > bestNode.dist){
+            bestNode = bestOpenNode;
         }
 
-        curr = bestNode;
+        curr = bestOpenNode;
         openedNodes.splice(openedNodes.indexOf(curr), 1);
         closedNodes.push(curr);
-        for(let i = -1; i <= 1; i++){
-            for(let j = -1; j <= 1; j++){
+        for(let j = -1; j <= 1; j++){
+            for(let i = -1; i <= 1; i++){
                 if((i !== 0 || j !== 0)){
                     const x = curr.pos.x + i;
                     const y = curr.pos.y + j;
                     if(x < 0 || y < 0 || x >= w || y >= h) continue;
-                    if(!matrix[x][y]) continue;
-                    let b = false;
+                    if(!matrix[y][x]) continue;
+                    let nodeClosed = false;
                     for (const node of closedNodes){
                       if (node.pos.x === curr.pos.x + i && node.pos.y === curr.pos.y + j) {
-                        b = true;
+                        nodeClosed = true;
                         break;
                       }
                     }
-                    const newG = curr.g + (Math.abs(i) + Math.abs(j) === 1 ? 1 : DIAGONAL);
+                    const newG = curr.dist + (Math.abs(i) + Math.abs(j) === 1 ? 1 : DIAGONAL);
                     
-                    if (!b){
-                        const neighbour = { pos: curr.pos.add(new Vector2(i, j)), g: newG , parent: curr };
+                    if (!nodeClosed){
+                        const neighbour = { pos: curr.pos.add(new Vector2(i, j)), dist: newG , parent: curr };
 
-                        let c = false;
+                        let nodeOpened = false;
                         for (const node of openedNodes){
                             if (Vector2.equals(node.pos, neighbour.pos)){
-                                c = true;
+                                nodeOpened = true;
                             }
                         }   
-                        if(!c || newG < neighbour.g){
-                            neighbour.g = newG;
-                            if(!c) openedNodes.push(neighbour);
+                        if(!nodeOpened || newG < neighbour.dist){
+                            neighbour.dist = newG;
+                            if(!nodeOpened) openedNodes.push(neighbour);
                         }
                     }
                 }
             }
         }
         if (openedNodes.length === 0){
-            const res = [];
-            let parent = thebest;
+            const res = Object.create(null);
+            let parent = bestNode;
             while (parent.parent) {
                 parent = parent.parent;
-                if(!parent.parent) res.push(parent.pos);
+                if(!parent.parent) res.start = parent.pos;
             }
-            res.push(thebest.pos);
-            // for (const node of closedNodes){
-            //     ctx2.beginPath();
-            //     ctx2.fillStyle = 'red';
-            //     ctx2.fillRect(node.pos.y, node.pos.x, 0.8, 0.8);
-            //     ctx2.fill();
-            // }
+            res.end = bestNode.pos;
             return res;
         }
     }
@@ -197,115 +194,71 @@ function exploreLine(matrix, startPos = new Vector2()){
 
 function getLine(matrix, startPos){
     const line = exploreLine(matrix, startPos);
-    const endPos = line[1];
+    const endPos = line.end;
     const line2 = exploreLine(matrix, endPos);
-
-    const a = line2[0];
-    const b = line2[1];
 
     ctx2.strokeStyle = 'green';
     ctx2.lineWidth = 4;
 
-    ctx2.beginPath();
-    ctx2.moveTo(a.y, a.x);
-    ctx2.lineTo(b.y, b.x);
-    ctx2.stroke();
+    drawline(ctx2, line2.start, line2.end);
 
     ctx2.strokeStyle = 'red';
     ctx2.lineWidth = 2;
 
-    ctx2.beginPath();
-    ctx2.arc(a.y, a.x, 3, CIRCLE_START, CIRCLE_END);
-    ctx2.stroke();
-
-    ctx2.beginPath();
-    ctx2.arc(b.y, b.x, 3, CIRCLE_START, CIRCLE_END);
-    ctx2.stroke();
+    drawCircle(ctx2, line2.start);
+    drawCircle(ctx2, line2.end);
 
     return line2;
+}
+
+function findDistanceToLine(point, linePos, lineNormVector){
+
+    const A = lineNormVector.x;
+    const B = lineNormVector.y;
+    const C = - A * linePos.x - B * linePos.y;
+
+    return Math.abs(A * point.x + B * point.y + C) / Math.sqrt(A * A + B * B);
 }
 
 function findlines(matrix){
     const lines = [];
     const h = matrix.length;
     const w = matrix[0].length;
-    let cntr = 0;
-    for(let i = 0; i < h; i++){
-        for(let j = 0; j < w; j++){
-            if(!matrix[i][j]) continue;
-            // if(cntr > 3342) {
-            //     const a = lines[lines.length - 1][0];
-            //     ctx2.strokeStyle = 'green';
-            //     ctx2.lineWidth = 4;
 
-            //     ctx2.beginPath();
-            //     ctx2.arc(a.y, a.x, 5, CIRCLE_START, CIRCLE_END);
-            //     ctx2.stroke();
+    for(let j = 0; j < h; j++){
+        for(let i = 0; i < w; i++){
+            if(!matrix[j][i]) continue;
 
-            //     const b = lines[lines.length - 1][1];
-            //     ctx2.strokeStyle = 'blue';
-            //     ctx2.lineWidth = 4;
+            let lineExists = false;
 
-            //     ctx2.beginPath();
-            //     ctx2.arc(b.y, b.x, 5, CIRCLE_START, CIRCLE_END);
-            //     ctx2.stroke();
-
-            //     console.log(lines.length);
-            //     return;
-            // };
-            cntr++;
-            let bool = false;
             for(const line of lines){
-                const V2 = line[1].subtract(line[0]);
-                const V = V2.rotate(Math.PI / 2);
-                // const a = line[0];
-                // const b = line[0].add(V);
-    
-                // ctx2.strokeStyle = 'red';
-                // ctx2.lineWidth = 4;
-    
-                // ctx2.beginPath();
-                // ctx2.moveTo(a.y, a.x);
-                // ctx2.lineTo(b.y, b.x);
-                // ctx2.stroke();
-                // console.log(V);
 
-                const A = V.x;
-                const B = V.y;
-                const C = - A * line[0].x - B * line[0].y; 
-                const dist = Math.abs(A * i + B * j + C) / Math.sqrt(A * A + B * B);
+                const v = line.end.subtract(line.start);
+                const n = v.rotate(Math.PI / 2);
 
-                const mid = line[0].add(line[1]).divide(2);
-                const A2 = V2.x;
-                const B2 = V2.y;
-                const C2 = - A2 * mid.x - B2 * mid.y; 
-                const dist2 = Math.abs(A2 * i + B2 * j + C2) / Math.sqrt(A2 * A2 + B2 * B2);
+                const point = new Vector2(i, j);
 
-                // const a = mid;
-                // const b = mid.add(V);
-    
-                // ctx2.strokeStyle = 'red';
-                // ctx2.lineWidth = 4;
-    
-                // ctx2.beginPath();
-                // ctx2.moveTo(a.y, a.x);
-                // ctx2.lineTo(b.y, b.x);
-                // ctx2.stroke();
+                const dist = findDistanceToLine(point, line.start, n);
+
+                const mid = line.start.add(line.end).divide(2);
+
+                const dist2 = findDistanceToLine(point, mid, v);
+
                 const border = 3;
-                const len = V2.length() / 2;
-                if(dist < 3 && dist2 <= len + 3){
-                    bool = true;
+                const len = v.length() / 2;
+                if(dist < border && dist2 <= len + border){
+                    lineExists = true;
                     break;
                 }
             }
 
-            if(bool) continue;
+            if(lineExists) continue;
 
             const line = getLine(matrix, new Vector2(i, j));
             lines.push(line);
         }
     }
-    console.log(lines.length);
+    console.log('Found lines: ' + lines.length);
 }
 
 function onLoad(){
@@ -335,9 +288,7 @@ function onLoad(){
     ctx2.strokeStyle = 'red';
 
     for(let i = 0; i < 3; i++){
-        ctx2.beginPath();
-        ctx2.arc(imageMid.x, imageMid.y, radiuses[i], CIRCLE_START, CIRCLE_END);
-        ctx2.stroke();
+        drawCircle(ctx2, imageMid, radiuses[i]);
     }
 }
 
